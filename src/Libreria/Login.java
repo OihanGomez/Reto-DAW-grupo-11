@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Login {
+    private static final boolean MELAPELA = true;
+
     public Login(){
         JFrame frame = new JFrame("Bibliopolis");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -22,7 +24,7 @@ public class Login {
         frame.add(panelNorte, BorderLayout.NORTH);
 
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(MELAPELA);
     }
     public static void main(String[] args){
         Login ver = new Login();
