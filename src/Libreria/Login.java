@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Login {
-    private static final boolean MELAPELA = true;
+    private static final boolean MELAPELA = false;
 
     public Login(){
         JFrame frame = new JFrame("Bibliopolis");
