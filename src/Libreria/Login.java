@@ -22,7 +22,7 @@ public class Login {
         frame.add(panelNorte, BorderLayout.NORTH);
 
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(false);
     }
     public static void main(String[] args){
         Login ver = new Login();
