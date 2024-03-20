@@ -29,19 +29,29 @@ public class UserMainPage {
         ImageIcon userLogedIcon = new ImageIcon(("src/user_icon_white_resize.png"));
         JLabel inicioSesion = new JLabel(userLogedIcon);
 
-
+        JLabel underUser = new JLabel("User");
 
         ayuda.setForeground(Color.WHITE);
         colecciones.setForeground(Color.WHITE);
         eventosYNoticias.setForeground(Color.WHITE);
         sobreNosotros.setForeground(Color.WHITE);
         inicioSesion.setForeground(Color.WHITE);
+        underUser.setForeground(Color.WHITE);
 
 
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
         colecciones.setFont(new Font("Arial",Font.BOLD,14));
         eventosYNoticias.setFont(new Font("Arial",Font.BOLD,14));
         sobreNosotros.setFont(new Font("Arial",Font.BOLD,14));
+        underUser.setFont(new Font("Arial",Font.BOLD,14));
+
+        JPanel vertical= new JPanel();
+        vertical.setLayout(new BoxLayout(vertical, BoxLayout.Y_AXIS));
+        vertical.setLayout(new FlowLayout());
+        vertical.setPreferredSize(new Dimension(50,50));
+        vertical.setBackground(Color.BLACK);
+        vertical.add(inicioSesion);
+        vertical.add(underUser);
 
         JPanel grupoBotones = new JPanel();
         grupoBotones.setBackground(Color.BLACK);
@@ -56,7 +66,12 @@ public class UserMainPage {
         grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(sobreNosotros);
         grupoBotones.add(Box.createHorizontalStrut(70));
-        grupoBotones.add(inicioSesion);
+        grupoBotones.add(vertical);
+
+
+
+
+
 
 
 
@@ -73,7 +88,8 @@ public class UserMainPage {
         body.setPreferredSize(new Dimension(700,500));
 
         body.setLayout(new BorderLayout());
-
+        JLabel label = new JLabel("Josu puto retrasado");
+        body.add(label);
 
         frame.add(header, BorderLayout.NORTH);
         frame.add(body, BorderLayout.CENTER);
