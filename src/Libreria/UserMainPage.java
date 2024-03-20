@@ -3,8 +3,8 @@ package Libreria;
 import javax.swing.*;
 import java.awt.*;
 
-public class Principal {
-    public Principal(){
+public class UserMainPage {
+    public UserMainPage(){
         JFrame frame = new JFrame("Bibliopolis");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(900,600));
@@ -25,7 +25,11 @@ public class Principal {
         JLabel colecciones = new JLabel("Colecciones");
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
-        JLabel inicioSesion = new JLabel("inicioSesion");
+
+        ImageIcon userLogedIcon = new ImageIcon(("src/user_icon_white_resize.png"));
+        JLabel inicioSesion = new JLabel(userLogedIcon);
+
+
 
         ayuda.setForeground(Color.WHITE);
         colecciones.setForeground(Color.WHITE);
@@ -38,21 +42,20 @@ public class Principal {
         colecciones.setFont(new Font("Arial",Font.BOLD,14));
         eventosYNoticias.setFont(new Font("Arial",Font.BOLD,14));
         sobreNosotros.setFont(new Font("Arial",Font.BOLD,14));
-        inicioSesion.setFont(new Font("Arial",Font.BOLD,14));
 
         JPanel grupoBotones = new JPanel();
         grupoBotones.setBackground(Color.BLACK);
         grupoBotones.setLayout(new BoxLayout(grupoBotones, BoxLayout.X_AXIS));
         grupoBotones.setPreferredSize(new Dimension(200,100));
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(ayuda);
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(colecciones);
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(eventosYNoticias);
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(sobreNosotros);
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(70));
         grupoBotones.add(inicioSesion);
 
 
@@ -79,6 +82,7 @@ public class Principal {
         frame.setVisible(true);
     }
     public static void main(String[] args){
-        Principal ver = new Principal();
+        UserMainPage ver = new UserMainPage();
     }
+
 }
