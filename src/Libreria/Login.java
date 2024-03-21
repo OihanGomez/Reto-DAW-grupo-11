@@ -14,11 +14,11 @@ public class Login {
         JFrame frame = new JFrame("Bibliopolis");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setPreferredSize(new Dimension(900,600));
+        frame.setPreferredSize(new Dimension(600,600));
 
         JPanel panelNorte = new JPanel();
         panelNorte.setLayout(new BorderLayout());
-        panelNorte.setPreferredSize(new Dimension(900,100));
+        panelNorte.setPreferredSize(new Dimension(600,100));
         panelNorte.setBackground(Color.black);
 
         JPanel panelCentro = new JPanel();
