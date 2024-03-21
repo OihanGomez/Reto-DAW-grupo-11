@@ -87,9 +87,6 @@ public class UserMainPage {
         JPanel body = new JPanel();
         body.setPreferredSize(new Dimension(700,500));
 
-        body.setLayout(new BorderLayout());
-        JLabel label = new JLabel("Josu puto retrasado");
-        body.add(label);
 
         frame.add(header, BorderLayout.NORTH);
         frame.add(body, BorderLayout.CENTER);
