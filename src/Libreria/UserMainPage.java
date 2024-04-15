@@ -18,7 +18,7 @@ public class UserMainPage {
         header.setLayout(new BorderLayout());
         header.setPreferredSize(new Dimension(700,100));
 
-        ImageIcon logo = new ImageIcon("src/logo_blanco.png");
+        ImageIcon logo = new ImageIcon("src/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
 
         JLabel ayuda = new JLabel("Ayuda con...");
@@ -26,7 +26,7 @@ public class UserMainPage {
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
 
-        ImageIcon userLogedIcon = new ImageIcon(("src/user_icon_white_resize.png"));
+        ImageIcon userLogedIcon = new ImageIcon(("src/imagenes/user_icon_white_resize.png"));
         JLabel inicioSesion = new JLabel(userLogedIcon);
 
         JLabel underUser = new JLabel("User");

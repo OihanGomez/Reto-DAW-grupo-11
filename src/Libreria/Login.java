@@ -49,7 +49,7 @@ public class Login {
         login.setBounds(100,260,90,30);
 
 
-        ImageIcon logo = new ImageIcon("src/logo_blanco.png");
+        ImageIcon logo = new ImageIcon("src/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
 
         contenido.add(usuario);
