@@ -1,4 +1,4 @@
-package Libreria;
+package Libreria.Paginas;
 
 import java.awt.*;
 import java.awt.event.*;

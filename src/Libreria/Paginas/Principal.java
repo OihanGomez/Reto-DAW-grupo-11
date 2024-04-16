@@ -1,9 +1,11 @@
-package Libreria;
-
-import Libreria.TextPrompt;
+package Libreria.Paginas;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Principal {
     public Principal(){
@@ -20,7 +22,7 @@ public class Principal {
         header.setLayout(new BorderLayout());
         header.setPreferredSize(new Dimension(700,100));
 
-        ImageIcon logo = new ImageIcon("src/imagenes/logo_blanco.png");
+        ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
 
         JLabel ayuda = new JLabel("Ayuda con...");
@@ -36,10 +38,15 @@ public class Principal {
         inicioSesion.setForeground(Color.WHITE);
 
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
+        ayuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         colecciones.setFont(new Font("Arial",Font.BOLD,14));
+        colecciones.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         eventosYNoticias.setFont(new Font("Arial",Font.BOLD,14));
+        eventosYNoticias.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         sobreNosotros.setFont(new Font("Arial",Font.BOLD,14));
+        sobreNosotros.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         inicioSesion.setFont(new Font("Arial",Font.BOLD,14));
+        inicioSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JPanel grupoBotones = new JPanel();
         grupoBotones.setBackground(Color.BLACK);
@@ -60,7 +67,6 @@ public class Principal {
         //Body
         JPanel body = new JPanel();
         body.setPreferredSize(new Dimension(700,500));
-        body.setBackground(Color.yellow);
         body.setLayout(new BorderLayout());
 
         //Contenido panel
@@ -68,16 +74,15 @@ public class Principal {
         bodyArriba.setPreferredSize(new Dimension(700,125));
         bodyArriba.setLayout(null);
 
+
         JPanel bodyAbajo = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         bodyAbajo.setPreferredSize(new Dimension(700,300));
-        bodyAbajo.setBackground(Color.green);
         bodyAbajo.setLayout(null);
 
 
         //Panel de dentro de panelArriba
 
         JPanel arribaContenido = new JPanel();
-        arribaContenido.setBackground(Color.lightGray);
         arribaContenido.setPreferredSize(new Dimension(400,30));
         arribaContenido.setLayout(new BoxLayout(arribaContenido, BoxLayout.X_AXIS));
         arribaContenido.setBounds(300,40,300,30);
@@ -88,22 +93,46 @@ public class Principal {
         placeHolder.changeStyle(Font.ITALIC);
         buscadorTexto.setPreferredSize(new Dimension(300,30));
 
-        ImageIcon buscadorIcono = new ImageIcon("src/imagenes/buscador.png");
+        ImageIcon buscadorIcono = new ImageIcon("src/Libreria/imagenes/buscador.png");
         JLabel buscadorEtiqueta = new JLabel(buscadorIcono);
+        buscadorEtiqueta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        buscadorEtiqueta.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String nombreLibro = buscadorTexto.getText();
+                //buscadorEtiqueta(nombreLibro);
+            }
+        });
+
 
         //Panel dentro de panelAbajo
 
         JPanel abajoContenido = new JPanel();
         abajoContenido.setBounds(5,5,874,326);
         abajoContenido.setLayout(null);
-        abajoContenido.setBackground(Color.magenta);
 
 
+        //Contenido de abajoContenido
+
+        JPanel panelIzquerda = new JPanel();
+        panelIzquerda.setLayout(null);
+        panelIzquerda.setBounds(5,5,427,316);
+
+        JPanel panelDerecha = new JPanel();
+        panelDerecha.setLayout(null);
+        panelDerecha.setBounds(440,5,427,316);
 
         //Añadir contenido
 
         bodyAbajo.add(abajoContenido);
         bodyArriba.add(arribaContenido,BorderLayout.NORTH);
+        abajoContenido.add(panelIzquerda);
+        abajoContenido.add(panelDerecha);
+        panelIzquerda.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Resultados de búsqueda",
+                TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION));
+        panelDerecha.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Libros populares",
+                TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION));
 
         arribaContenido.add(buscadorTexto);
         arribaContenido.add(buscadorEtiqueta);
