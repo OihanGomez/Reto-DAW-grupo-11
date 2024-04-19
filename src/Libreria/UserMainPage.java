@@ -3,8 +3,8 @@ package Libreria;
 import javax.swing.*;
 import java.awt.*;
 
-public class Principal {
-    public Principal(){
+public class UserMainPage {
+    public UserMainPage(){
         JFrame frame = new JFrame("Bibliopolis");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(900,600));
@@ -25,35 +25,53 @@ public class Principal {
         JLabel colecciones = new JLabel("Colecciones");
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
-        JLabel inicioSesion = new JLabel("inicioSesion");
+
+        ImageIcon userLogedIcon = new ImageIcon(("src/user_icon_white_resize.png"));
+        JLabel inicioSesion = new JLabel(userLogedIcon);
+
+        JLabel underUser = new JLabel("User");
 
         ayuda.setForeground(Color.WHITE);
         colecciones.setForeground(Color.WHITE);
         eventosYNoticias.setForeground(Color.WHITE);
         sobreNosotros.setForeground(Color.WHITE);
         inicioSesion.setForeground(Color.WHITE);
+        underUser.setForeground(Color.WHITE);
 
 
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
         colecciones.setFont(new Font("Arial",Font.BOLD,14));
         eventosYNoticias.setFont(new Font("Arial",Font.BOLD,14));
         sobreNosotros.setFont(new Font("Arial",Font.BOLD,14));
-        inicioSesion.setFont(new Font("Arial",Font.BOLD,14));
+        underUser.setFont(new Font("Arial",Font.BOLD,14));
+
+        JPanel vertical= new JPanel();
+        vertical.setLayout(new BoxLayout(vertical, BoxLayout.Y_AXIS));
+        vertical.setLayout(new FlowLayout());
+        vertical.setPreferredSize(new Dimension(50,50));
+        vertical.setBackground(Color.BLACK);
+        vertical.add(inicioSesion);
+        vertical.add(underUser);
 
         JPanel grupoBotones = new JPanel();
         grupoBotones.setBackground(Color.BLACK);
         grupoBotones.setLayout(new BoxLayout(grupoBotones, BoxLayout.X_AXIS));
         grupoBotones.setPreferredSize(new Dimension(200,100));
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(ayuda);
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(colecciones);
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(eventosYNoticias);
-        grupoBotones.add(Box.createHorizontalStrut(30));
+        grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(sobreNosotros);
-        grupoBotones.add(Box.createHorizontalStrut(30));
-        grupoBotones.add(inicioSesion);
+        grupoBotones.add(Box.createHorizontalStrut(70));
+        grupoBotones.add(vertical);
+
+
+
+
+
 
 
 
@@ -69,8 +87,6 @@ public class Principal {
         JPanel body = new JPanel();
         body.setPreferredSize(new Dimension(700,500));
 
-        body.setLayout(new BorderLayout());
-
 
         frame.add(header, BorderLayout.NORTH);
         frame.add(body, BorderLayout.CENTER);
@@ -79,6 +95,7 @@ public class Principal {
         frame.setVisible(true);
     }
     public static void main(String[] args){
-        Principal ver = new Principal();
+        UserMainPage ver = new UserMainPage();
     }
+
 }
