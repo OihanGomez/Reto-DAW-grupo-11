@@ -1,12 +1,9 @@
-package Libreria;
+package Libreria.Paginas;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-
-import static java.awt.Frame.ICONIFIED;
 
 public class Login {
 
@@ -47,15 +44,20 @@ public class Login {
 
         JLabel login = new JLabel("Iniciar Sesión");
         login.setBounds(100,260,90,30);
+        login.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        JLabel regist = new JLabel("Regístrate");
+        regist.setBounds(50,220,90,30);
+        regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        ImageIcon logo = new ImageIcon("src/logo_blanco.png");
+        ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
 
         contenido.add(usuario);
         contenido.add(contraseña);
         contenido.add(userText);
         contenido.add(passwordText);
+        contenido.add(regist);
         contenido.add(login);
         contenido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Inicio de Sesión",
                 TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));

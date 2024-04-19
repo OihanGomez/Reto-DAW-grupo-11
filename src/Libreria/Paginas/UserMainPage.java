@@ -1,4 +1,4 @@
-package Libreria;
+package Libreria.Paginas;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class UserMainPage {
         header.setLayout(new BorderLayout());
         header.setPreferredSize(new Dimension(700,100));
 
-        ImageIcon logo = new ImageIcon("src/logo_blanco.png");
+        ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
 
         JLabel ayuda = new JLabel("Ayuda con...");
@@ -26,17 +26,23 @@ public class UserMainPage {
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
 
-        ImageIcon userLogedIcon = new ImageIcon(("src/user_icon_white_resize.png"));
+        ImageIcon userLogedIcon = new ImageIcon(("src/Libreria/imagenes/user_icon_white_resize.png"));
         JLabel inicioSesion = new JLabel(userLogedIcon);
 
         JLabel underUser = new JLabel("User");
 
-        ayuda.setForeground(Color.WHITE);
-        colecciones.setForeground(Color.WHITE);
-        eventosYNoticias.setForeground(Color.WHITE);
-        sobreNosotros.setForeground(Color.WHITE);
-        inicioSesion.setForeground(Color.WHITE);
-        underUser.setForeground(Color.WHITE);
+
+        ayuda.setFont(new Font("Arial",Font.BOLD,14));
+        ayuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        colecciones.setFont(new Font("Arial",Font.BOLD,14));
+        colecciones.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        eventosYNoticias.setFont(new Font("Arial",Font.BOLD,14));
+        eventosYNoticias.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        sobreNosotros.setFont(new Font("Arial",Font.BOLD,14));
+        sobreNosotros.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        inicioSesion.setFont(new Font("Arial",Font.BOLD,14));
+        inicioSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
 
 
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
