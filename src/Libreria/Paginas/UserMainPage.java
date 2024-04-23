@@ -1,7 +1,11 @@
 package Libreria.Paginas;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class UserMainPage {
     public UserMainPage(){
@@ -30,7 +34,12 @@ public class UserMainPage {
         JLabel inicioSesion = new JLabel(userLogedIcon);
 
         JLabel underUser = new JLabel("User");
-
+        ayuda.setForeground(Color.WHITE);
+        colecciones.setForeground(Color.WHITE);
+        eventosYNoticias.setForeground(Color.WHITE);
+        sobreNosotros.setForeground(Color.WHITE);
+        inicioSesion.setForeground(Color.WHITE);
+        underUser.setForeground(Color.WHITE);
 
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
         ayuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -74,13 +83,6 @@ public class UserMainPage {
         grupoBotones.add(Box.createHorizontalStrut(70));
         grupoBotones.add(vertical);
 
-
-
-
-
-
-
-
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(Color.BLACK);
         headerPanel.add(grupoBotones, BorderLayout.CENTER);
@@ -92,7 +94,78 @@ public class UserMainPage {
         //Body
         JPanel body = new JPanel();
         body.setPreferredSize(new Dimension(700,500));
+        body.setLayout(new BorderLayout());
 
+        //Contenido panel
+        JPanel bodyArriba = new JPanel();
+        bodyArriba.setPreferredSize(new Dimension(700,125));
+        bodyArriba.setLayout(null);
+
+
+        JPanel bodyAbajo = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        bodyAbajo.setPreferredSize(new Dimension(700,300));
+        bodyAbajo.setLayout(null);
+
+
+        //Panel de dentro de panelArriba
+
+        JPanel arribaContenido = new JPanel();
+        arribaContenido.setPreferredSize(new Dimension(400,30));
+        arribaContenido.setLayout(new BoxLayout(arribaContenido, BoxLayout.X_AXIS));
+        arribaContenido.setBounds(300,40,300,30);
+
+        JTextField buscadorTexto = new JTextField(30);
+        TextPrompt placeHolder = new TextPrompt("Busca tu libro...", buscadorTexto);
+        placeHolder.changeAlpha(0.75f);
+        placeHolder.changeStyle(Font.ITALIC);
+        buscadorTexto.setPreferredSize(new Dimension(300,30));
+
+        ImageIcon buscadorIcono = new ImageIcon("src/Libreria/imagenes/buscador.png");
+        JLabel buscadorEtiqueta = new JLabel(buscadorIcono);
+        buscadorEtiqueta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        buscadorEtiqueta.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String nombreLibro = buscadorTexto.getText();
+                //buscadorEtiqueta(nombreLibro);
+            }
+        });
+
+
+        //Panel dentro de panelAbajo
+
+        JPanel abajoContenido = new JPanel();
+        abajoContenido.setBounds(5,5,874,326);
+        abajoContenido.setLayout(null);
+
+
+        //Contenido de abajoContenido
+
+        JPanel panelIzquerda = new JPanel();
+        panelIzquerda.setLayout(null);
+        panelIzquerda.setBounds(5,5,427,316);
+
+        JPanel panelDerecha = new JPanel();
+        panelDerecha.setLayout(null);
+        panelDerecha.setBounds(440,5,427,316);
+
+        //Añadir contenido
+
+        bodyAbajo.add(abajoContenido);
+        bodyArriba.add(arribaContenido,BorderLayout.NORTH);
+        abajoContenido.add(panelIzquerda);
+        abajoContenido.add(panelDerecha);
+        panelIzquerda.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Resultados de búsqueda",
+                TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION));
+        panelDerecha.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Libros populares",
+                TitledBorder.LEFT, TitledBorder.DEFAULT_POSITION));
+
+        arribaContenido.add(buscadorTexto);
+        arribaContenido.add(buscadorEtiqueta);
+
+        body.add(bodyArriba, BorderLayout.NORTH);
+        body.add(bodyAbajo, BorderLayout.CENTER);
 
         frame.add(header, BorderLayout.NORTH);
         frame.add(body, BorderLayout.CENTER);
