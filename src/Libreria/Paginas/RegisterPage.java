@@ -12,6 +12,7 @@ public class RegisterPage {
             frame.setLayout(new BorderLayout());
             frame.setPreferredSize(new Dimension(600,600));
 
+            //Creación de los paneles
             JPanel panelNorte = new JPanel();
             panelNorte.setLayout(new BorderLayout());
             panelNorte.setPreferredSize(new Dimension(600,100));
@@ -24,21 +25,24 @@ public class RegisterPage {
             contenido.setLayout(null);
             contenido.setPreferredSize(new Dimension(300,400));
 
+            //Creación de las etiquetas
             JLabel usuario = new JLabel("Usuario");
             usuario.setBounds(50,90,100,50);
+
             JLabel contraseña = new JLabel("Contraseña");
             contraseña.setBounds(50,150,100,50);
+
             JLabel contraseñaConfirmacion = new JLabel("Confirmar contraseña");
             contraseñaConfirmacion.setBounds(50,210,130,50);
+
             JLabel correo = new JLabel("Correo electronico");
             correo.setBounds(50,30,130,50);
 
+            JLabel regist = new JLabel("Registrarse");
+            regist.setBounds(100,300,90,30);
+            regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-
-
-
-
-
+            //Creación de los campos de texto
             JTextField userText = new JTextField(10);
             TextPrompt placeholder1 = new TextPrompt("Añade el usuario",userText);
             placeholder1.changeAlpha(0.75f);
@@ -63,15 +67,11 @@ public class RegisterPage {
             placeholder4.changeStyle(Font.ITALIC);
             añadirCorreo.setBounds(50,65,175,30);
 
-
-            JLabel regist = new JLabel("Registrarse");
-            regist.setBounds(100,300,90,30);
-            regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-
+            //Imagen del logo
             ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
             JLabel etiquetaFoto1 = new JLabel(logo);
 
+            //Adición del contenido en el panel "Contenido"
             contenido.add(usuario);
             contenido.add(contraseña);
             contenido.add(userText);
