@@ -6,41 +6,41 @@ import java.sql.SQLException;
 
 public class ConexionBD {
     // Atributos para la conexión
-    private String url;
-    private String usuario;
-    private String contraseña;
-    private Connection conexion;
+    static final String SERVER_IP = "10.14.0.55";
+    static final String DB_NAME = "Biblioteca";
+    static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
+    static final String DB_URL = "jdbc:oracle:thin:" + SERVER_IP + ":1521/" + DB_NAME;
 
-    // Constructor
-    public ConexionBD(String url, String usuario, String contraseña) {
-        this.url = url;
-        this.usuario = usuario;
-        this.contraseña = contraseña;
-    }
+    // Database credentials
+    static final String USER = "grupo11";
+    static final String PASSWORD = "grupo11";
 
-    // Método para establecer la conexión
-    public void conectar() throws SQLException {
-        if (conexion == null || conexion.isClosed()) {
-            try {
-                conexion = DriverManager.getConnection(url, usuario, contraseña);
-                System.out.println("Conexión establecida.");
-            } catch (SQLException e) {
-                System.err.println("Error al conectar a la base de datos: " + e.getMessage());
-                throw e;
-            }
+    private Connection connection;
+
+    // Constructor (establecer conexion)
+    public ConexionBD() {
+        try {
+            Class.forName(JDBC_DRIVER);
+            System.out.println("Connecting to database...");
+            connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+            System.out.println("Connected.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     // Método para cerrar la conexión
     public void desconectar() throws SQLException {
-        if (conexion != null && !conexion.isClosed()) {
-            conexion.close();
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
             System.out.println("Conexión cerrada.");
         }
     }
 
     // Getter para obtener la conexión
     public Connection getConexion() {
-        return conexion;
+        return connection;
     }
 }
