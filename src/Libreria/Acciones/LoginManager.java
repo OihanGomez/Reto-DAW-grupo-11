@@ -30,4 +30,22 @@ public class LoginManager {
             return false;
         }
     }
+
+    public boolean isAdmin (String username){
+        try{
+            String query = "SELECT admin FROM usuarios WHERE username = ?";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1,username);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                boolean isAdmin = resultSet.getBoolean("admin");
+                return isAdmin;
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
