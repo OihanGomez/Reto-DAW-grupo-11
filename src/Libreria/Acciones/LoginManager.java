@@ -1,5 +1,7 @@
 package Libreria.Acciones;
 
+import Libreria.Excepciones.InvalidCredentialsException;
+
 import java.sql.*;
 
 public class LoginManager {
@@ -9,20 +11,25 @@ public class LoginManager {
         this.conexion = conexionBD.getConexion();
     }
 
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws InvalidCredentialsException {
         // Hay que revisar bien el codigo aun.
+       if (!validarCredenciales(username, password)){
+           throw new InvalidCredentialsException("Credenciales invalidas");
+       }
+       return true;
+    }
+
+    public boolean validarCredenciales(String username, String password){
         try {
-            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM usuario WHERE id_usuario = ? AND password = ?";
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                System.out.println("¡Inicio de sesión exitoso para " + username + "!");
                 return true;
             } else {
-                System.out.println("Nombre de usuario o contraseña incorrectos.");
                 return false;
             }
         } catch (SQLException e) {

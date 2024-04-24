@@ -2,6 +2,7 @@ package Libreria.Paginas;
 
 import Libreria.Acciones.ConexionBD;
 import Libreria.Acciones.LoginManager;
+import Libreria.Excepciones.InvalidCredentialsException;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -63,23 +64,21 @@ public class Login {
                 ConexionBD conexionBD = new ConexionBD();
                 LoginManager loginManager = new LoginManager(conexionBD);
 
-                boolean estaLogueado = loginManager.login(username, password);
-                boolean esAdmin = loginManager.isAdmin(username);
-                if (estaLogueado && esAdmin){
-                    frame.dispose();
-                    AdminMainPage adminMainPage = new AdminMainPage();
-                }else if (estaLogueado){
-                    // entrar a pagina principal como usuario normal
-                    frame.dispose();
-                    UserMainPage userMainPage = new UserMainPage();
-
-                }else {
-                    frame.dispose();
-                    // Mostrar error
+                try {
+                    boolean esAdmin = loginManager.login(username, password);
+                    if (esAdmin) {
+                        frame.dispose();
+                        AdminMainPage adminMainPage = new AdminMainPage();
+                    } else {
+                        frame.dispose();
+                        UserMainPage userMainPage = new UserMainPage();
+                    }
+                } catch (InvalidCredentialsException ex) {
                     JOptionPane.showMessageDialog(frame, "Credenciales incorrectas. Por favor, inténtalo de nuevo.", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
+
 
 
         // Escuchar el evento del boton
