@@ -32,21 +32,20 @@ public class Login {
         contenido.setLayout(null);
         contenido.setPreferredSize(new Dimension(300,400));
 
-        JLabel usuario = new JLabel("Usuario");
-        usuario.setBounds(50,50,100,50);
-        JLabel contraseña = new JLabel("Contraseña");
+        JLabel usuario = new JLabel("Correo electronico:");
+        usuario.setBounds(50,50,175,50);
+        JLabel contraseña = new JLabel("Contraseña:");
         contraseña.setBounds(50,150,100,50);
 
         JTextField userText = new JTextField(10);
-        TextPrompt placeholder1 = new TextPrompt("Añade el usuario",userText);
+        TextPrompt placeholder1 = new TextPrompt("example@gmail.com",userText);
         placeholder1.changeAlpha(0.75f);
         placeholder1.changeStyle(Font.ITALIC);
         userText.setBounds(50,100,175,30);
 
-        JTextField passwordText = new JTextField(10);
-        TextPrompt placeholder2 = new TextPrompt("Añade la contraseña",passwordText);
+        JPasswordField passwordText = new JPasswordField(10);
+        TextPrompt placeholder2 = new TextPrompt("",passwordText);
         placeholder2.changeAlpha(0.75f);
-        placeholder2.changeStyle(Font.ITALIC);
         passwordText.setBounds(50,200,175,30);
 
         // Boton inicio sesion
@@ -93,7 +92,7 @@ public class Login {
 
         // Boton registrase
         JLabel regist = new JLabel("Regístrate");
-        regist.setBounds(50,220,90,30);
+        regist.setBounds(110,240,90,30);
         regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
