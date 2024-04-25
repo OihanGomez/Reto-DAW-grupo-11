@@ -13,23 +13,28 @@ public class Login {
         frame.setLayout(new BorderLayout());
         frame.setPreferredSize(new Dimension(600,600));
 
+        //Panel del encabezado
         JPanel panelNorte = new JPanel();
         panelNorte.setLayout(new BorderLayout());
         panelNorte.setPreferredSize(new Dimension(600,100));
         panelNorte.setBackground(Color.black);
 
+        //Panel del cuerpo
         JPanel panelCentro = new JPanel();
         panelCentro.setPreferredSize(new Dimension(900,500));
 
+        //Panel del contenido dentro del cuerpo
         JPanel contenido = new JPanel();
         contenido.setLayout(null);
         contenido.setPreferredSize(new Dimension(300,400));
 
+        //Etiquetas del usuario y la contraseña
         JLabel usuario = new JLabel("Usuario");
         usuario.setBounds(50,50,100,50);
         JLabel contraseña = new JLabel("Contraseña");
         contraseña.setBounds(50,150,100,50);
 
+        //Área de texto del usuario y la contraseña
         JTextField userText = new JTextField(10);
         TextPrompt placeholder1 = new TextPrompt("Añade el usuario",userText);
         placeholder1.changeAlpha(0.75f);
@@ -42,23 +47,29 @@ public class Login {
         placeholder2.changeStyle(Font.ITALIC);
         passwordText.setBounds(50,200,175,30);
 
+        //Botón de inicio de sesión
         JLabel login = new JLabel("Iniciar Sesión");
         login.setBounds(100,260,90,30);
         login.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        //Botón de registro
         JLabel regist = new JLabel("Regístrate");
         regist.setBounds(50,220,90,30);
         regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        //Icono del logo en el encabezado
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
 
+        //Adicion dentro del panel "contenido"
         contenido.add(usuario);
         contenido.add(contraseña);
         contenido.add(userText);
         contenido.add(passwordText);
         contenido.add(regist);
         contenido.add(login);
+
+        //Lineas de alrededor de "Inicio de sesión"
         contenido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED), "Inicio de Sesión",
                 TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
 
