@@ -12,25 +12,38 @@ public class AdminMainPage {
         frame.setResizable(false);
         frame.setLayout(new BorderLayout());
 
-        //Header
+        //Panel del encabezado
         JPanel header = new JPanel();
         header.setBackground(Color.BLACK);
         header.setLayout(new BorderLayout());
         header.setPreferredSize(new Dimension(700, 100));
 
+        //Icono del logo en el encabezado a la izquierda
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
 
+        //Botones colocados en el encabezado en el centro
         JLabel ayuda = new JLabel("Ayuda con...");
         JLabel colecciones = new JLabel("Colecciones");
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
 
+        //Icono de del admin en el encabezado a la derecha
         ImageIcon userLogedIcon = new ImageIcon(("src/Libreria/imagenes/user_icon_white_resize.png"));
         JLabel inicioSesion = new JLabel(userLogedIcon);
 
+        //Texto debajo del icono del admin
         JLabel underUser = new JLabel("Admin");
 
+        //Cambio del color de los botones del encabezado
+        ayuda.setForeground(Color.WHITE);
+        colecciones.setForeground(Color.WHITE);
+        eventosYNoticias.setForeground(Color.WHITE);
+        sobreNosotros.setForeground(Color.WHITE);
+        inicioSesion.setForeground(Color.WHITE);
+        underUser.setForeground(Color.WHITE);
+
+        //Formatos de texto de los botones del encabezado
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
         ayuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         colecciones.setFont(new Font("Arial",Font.BOLD,14));
@@ -42,13 +55,7 @@ public class AdminMainPage {
         inicioSesion.setFont(new Font("Arial",Font.BOLD,14));
         inicioSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-
-        ayuda.setFont(new Font("Arial", Font.BOLD, 14));
-        colecciones.setFont(new Font("Arial", Font.BOLD, 14));
-        eventosYNoticias.setFont(new Font("Arial", Font.BOLD, 14));
-        sobreNosotros.setFont(new Font("Arial", Font.BOLD, 14));
-        underUser.setFont(new Font("Arial", Font.BOLD, 14));
-
+        //Panel donde se encuentran el icono del admin y el nombre del admin
         JPanel vertical = new JPanel();
         vertical.setLayout(new BoxLayout(vertical, BoxLayout.Y_AXIS));
         vertical.setLayout(new FlowLayout());
@@ -57,6 +64,7 @@ public class AdminMainPage {
         vertical.add(inicioSesion);
         vertical.add(underUser);
 
+        //Panel para agrupar los botones del encabezado
         JPanel grupoBotones = new JPanel();
         grupoBotones.setBackground(Color.BLACK);
         grupoBotones.setLayout(new BoxLayout(grupoBotones, BoxLayout.X_AXIS));
@@ -72,7 +80,7 @@ public class AdminMainPage {
         grupoBotones.add(Box.createHorizontalStrut(70));
         grupoBotones.add(vertical);
 
-
+        //Panel dentro del encabezado donde se mete todo el contenido, los paneles anteriores
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(Color.BLACK);
         headerPanel.add(grupoBotones, BorderLayout.CENTER);
@@ -80,7 +88,7 @@ public class AdminMainPage {
         header.add(headerPanel, BorderLayout.CENTER);
 
 
-        //Body
+        //Cuerpo
         JPanel body = new JPanel();
         body.setPreferredSize(new Dimension(700, 500));
 
