@@ -1,9 +1,16 @@
 package Libreria.Paginas;
 
+import Libreria.Acciones.ConexionBD;
+import Libreria.Acciones.LoginManager;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login {
 
@@ -29,32 +36,70 @@ public class Login {
         contenido.setPreferredSize(new Dimension(300,400));
 
         //Etiquetas del usuario y la contraseña
-        JLabel usuario = new JLabel("Usuario");
-        usuario.setBounds(50,50,100,50);
-        JLabel contraseña = new JLabel("Contraseña");
+
+        JLabel usuario = new JLabel("Correo electronico:");
+        usuario.setBounds(50,50,175,50);
+        JLabel contraseña = new JLabel("Contraseña:");
         contraseña.setBounds(50,150,100,50);
 
         //Área de texto del usuario y la contraseña
         JTextField userText = new JTextField(10);
-        TextPrompt placeholder1 = new TextPrompt("Añade el usuario",userText);
+        TextPrompt placeholder1 = new TextPrompt("example@gmail.com",userText);
         placeholder1.changeAlpha(0.75f);
         placeholder1.changeStyle(Font.ITALIC);
         userText.setBounds(50,100,175,30);
 
-        JTextField passwordText = new JTextField(10);
-        TextPrompt placeholder2 = new TextPrompt("Añade la contraseña",passwordText);
+        JPasswordField passwordText = new JPasswordField(10);
+        TextPrompt placeholder2 = new TextPrompt("",passwordText);
         placeholder2.changeAlpha(0.75f);
-        placeholder2.changeStyle(Font.ITALIC);
         passwordText.setBounds(50,200,175,30);
 
         //Botón de inicio de sesión
+
         JLabel login = new JLabel("Iniciar Sesión");
         login.setBounds(100,260,90,30);
         login.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        //Botón de registro
+        // Listener para verificar si el usuario y contraseña son los correctos comparando con la base de datos.
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = userText.getText();
+                String password = passwordText.getText();
+                ConexionBD conexionBD = new ConexionBD();
+                LoginManager loginManager = new LoginManager(conexionBD);
+
+                boolean estaLogueado = loginManager.login(username, password);
+                boolean esAdmin = loginManager.isAdmin(username);
+                if (estaLogueado && esAdmin){
+                    frame.dispose();
+                    AdminMainPage adminMainPage = new AdminMainPage();
+                }else if (estaLogueado){
+                    // entrar a pagina principal como usuario normal
+                    frame.dispose();
+                    UserMainPage userMainPage = new UserMainPage();
+
+                }else {
+                    frame.dispose();
+                    // Mostrar error
+                    JOptionPane.showMessageDialog(frame, "Credenciales incorrectas. Por favor, inténtalo de nuevo.", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        };
+
+
+        // Escuchar el evento del boton
+        login.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Llamar al ActionListener cuando se haga clic en el botón
+                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            }
+        });
+
+        // Boton registrase
         JLabel regist = new JLabel("Regístrate");
-        regist.setBounds(50,220,90,30);
+        regist.setBounds(110,240,90,30);
         regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //Icono del logo en el encabezado
