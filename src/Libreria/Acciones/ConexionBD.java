@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Esta clase proporciona funcionalidad para establecer y manejar una conexión a una base de datos Oracle.
+ */
 public class ConexionBD {
     // Atributos para la conexión
     static final String SERVER_IP = "10.14.0.55";
@@ -11,19 +14,21 @@ public class ConexionBD {
     static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
     static final String DB_URL = "jdbc:oracle:thin:" + SERVER_IP + ":1521/" + DB_NAME;
 
-    // Database credentials
+    // Credenciales de la base de datos
     static final String USER = "grupo11";
     static final String PASSWORD = "grupo11";
 
     private Connection connection;
 
-    // Constructor (establecer conexion)
+    /**
+     * Constructor de la clase ConexionBD. Establece una conexión a la base de datos utilizando las credenciales predeterminadas.
+     */
     public ConexionBD() {
         try {
             Class.forName(JDBC_DRIVER);
-            System.out.println("Connecting to database...");
+            System.out.println("Conectando a la base de datos...");
             connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-            System.out.println("Connected.");
+            System.out.println("Conectado.");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -31,7 +36,11 @@ public class ConexionBD {
         }
     }
 
-    // Método para cerrar la conexión
+    /**
+     * Cierra la conexión a la base de datos si no está cerrada ya.
+     *
+     * @throws SQLException Si ocurre un error al cerrar la conexión.
+     */
     public void desconectar() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
@@ -39,7 +48,11 @@ public class ConexionBD {
         }
     }
 
-    // Getter para obtener la conexión
+    /**
+     * Obtiene la conexión a la base de datos.
+     *
+     * @return La conexión a la base de datos.
+     */
     public Connection getConexion() {
         return connection;
     }
