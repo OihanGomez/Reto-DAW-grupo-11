@@ -101,6 +101,20 @@ public class Login {
         regist.setBounds(110,240,90,30);
         regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        regist.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                // Cerrar la ventana actual
+                frame.dispose();
+
+                // Abrir una nueva ventana
+                RegisterPage registerPage = new RegisterPage(); // Reemplaza "OtraVentana" con el nombre de tu clase de ventana
+            }
+        });
+
+
         //Icono del logo en el encabezado
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);

@@ -132,7 +132,10 @@ public class RegisterPage {
                                 String lastName = apellidosText.getText();
                                 String address = direccionText.getText();
 
-                                if (!password.equals(confirmPassword)){
+
+                                if (password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty() || name.isEmpty() || lastName.isEmpty() || address.isEmpty()) {
+                                        JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                                } else if (!password.equals(confirmPassword)) {
                                         JOptionPane.showMessageDialog(frame, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
                                 } else if (registerManager.register(email, password, name, lastName, address)) {
                                         UserMainPage userMainPage = new UserMainPage();
