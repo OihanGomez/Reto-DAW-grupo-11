@@ -1,30 +1,41 @@
 package Libreria.Acciones;
 
+import Libreria.objetos.Libro;
+
 import java.sql.*;
 
 public class BuscadorLibro {
+    private Connection conexion;
+    public BuscadorLibro(ConexionBD conexionBD) {
+        this.conexion = conexionBD.getConexion();
+    }
 
-    public void buscarLibro(String nombreLibro) {
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:libros.db")) {
-            String sql = "SELECT * FROM libros WHERE nombre = ?";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, nombreLibro);
-                ResultSet rs = pstmt.executeQuery();
+    public Libro buscarLibro(String tituloLibro) {
 
-                if (rs.next()) {
-                    String titulo = rs.getString("titulo");
-                    String descripcion = rs.getString("descripcion");
-                    String portada = rs.getString("portada");
+            String sql = "SELECT * FROM libros WHERE titulo = ?";
+            try (PreparedStatement preparedStatement = conexion.prepareStatement(sql)) {
+                preparedStatement.setString(1, tituloLibro);
+                ResultSet resultSet = preparedStatement.executeQuery();
 
-                    System.out.println("Título: " + titulo);
-                    System.out.println("Descripción: " + descripcion);
-                    System.out.println("Portada: " + portada);
+                if (resultSet.next()) {
+                    Integer id_libro = resultSet.getInt("id_libro");
+                    String titulo = resultSet.getString("titulo");
+                    String descripcion = resultSet.getString("descripcion");
+                    Double precio = resultSet.getDouble("precio");
+                    Integer id_editorial = resultSet.getInt("id_editorial");
+                    String portadaRuta = resultSet.getString("Imagen");
+
+                    Libro libro = new Libro(id_libro,titulo,descripcion,precio,id_editorial,portadaRuta);
+
+                    return libro;
+
                 } else {
                     System.out.println("Libro no encontrado.");
+                    return null;
                 }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 }
