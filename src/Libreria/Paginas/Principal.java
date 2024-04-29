@@ -151,6 +151,7 @@ public class Principal {
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(true);
+
         buscadorEtiqueta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
