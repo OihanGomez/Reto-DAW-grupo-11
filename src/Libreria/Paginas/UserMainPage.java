@@ -58,6 +58,7 @@ public class UserMainPage {
         sobreNosotros.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         inicioSesion.setFont(new Font("Arial",Font.BOLD,14));
         inicioSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        etiquetaFoto1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //Panel donde se encuentran el icono del usuario y el nombre del usuario
         JPanel vertical= new JPanel();
@@ -132,6 +133,44 @@ public class UserMainPage {
             }
         });
 
+        // Añadir MouseListeners a los JLabels
+        ayuda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+
+        colecciones.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+
+        eventosYNoticias.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                EventosYnoticias eventosYnoticias = new EventosYnoticias();
+            }
+        });
+
+        sobreNosotros.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                VisitasYsobreNosotros visitasYsobreNosotros = new VisitasYsobreNosotros();
+            }
+        });
+
+        etiquetaFoto1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                UserMainPage visitasYsobreNosotros = new UserMainPage();
+            }
+        });
 
         //Panel del contenido de dentro del "panelAbajo"
         JPanel abajoContenido = new JPanel();
