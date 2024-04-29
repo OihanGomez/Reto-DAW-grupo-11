@@ -103,7 +103,7 @@ public class VisitasYsobreNosotros {
 
         JPanel body = new JPanel(new GridLayout(2, 1));
 
-        //----[ NOTICIAS ]-----------------------------------------------------------------------------
+        //----[ Programar Visita ]-----------------------------------------------------------------------------
         //color
         int red = 210;
         int green = 210;
@@ -159,7 +159,51 @@ public class VisitasYsobreNosotros {
 
         body.add(ProgramarVisita);
 
-        //----[ NOTICIAS ]-----------------------------------------------------------------------------
+        //----[ PANEL ADICIONAL ]---------------------------------------------------------------------
+        JPanel panelAdicional = new JPanel(new BorderLayout());
+        panelAdicional.setBackground(miColor);
+        panelAdicional.setBorder(BorderFactory.createEmptyBorder(20, 30, 30, 30)); // Añadir margen
+
+        // Título del panel adicional
+        JLabel tituloPanelAdicional = new JLabel("Sobre nosotros");
+        tituloPanelAdicional.setHorizontalAlignment(SwingConstants.CENTER);
+        tituloPanelAdicional.setFont(new Font("Arial", Font.BOLD, 28));
+        panelAdicional.add(tituloPanelAdicional, BorderLayout.NORTH);
+
+        // Subpanel para contenido del panel adicional
+        JPanel contenidoPanelAdicional = new JPanel();
+        contenidoPanelAdicional.setBackground(Color.WHITE); // Color de fondo para distinguirlo
+        panelAdicional.add(contenidoPanelAdicional, BorderLayout.CENTER); // Agregar el subpanel al panel adicional
+
+        // Subtítulo del panel adicional
+        JLabel subtituloPanelAdicional = new JLabel("<html><div style='text-align: center; width: 300px;'>Bibliopolis es una innovadora aplicación diseñada para satisfacer las necesidades de bibliotecas y librerías de todo el mundo. Con una interfaz intuitiva y funciones avanzadas, Bibliopolis simplifica la gestión de libros, préstamos, eventos y más. Desde pequeñas bibliotecas comunitarias hasta grandes librerías, nuestra plataforma ofrece soluciones adaptadas a cada necesidad. ¡Únete a nosotros y lleva tu biblioteca al siguiente nivel con Bibliopolis!</div></html>");
+        subtituloPanelAdicional.setHorizontalAlignment(SwingConstants.CENTER);
+        subtituloPanelAdicional.setFont(new Font("Centaur", Font.BOLD, 14));
+        contenidoPanelAdicional.add(subtituloPanelAdicional, BorderLayout.NORTH);
+
+
+        // Panel contenedor para contenido adicional
+        JPanel containerPanelAdicional = new JPanel();
+        containerPanelAdicional.setBackground(Color.LIGHT_GRAY);
+        containerPanelAdicional.setPreferredSize(new Dimension(300, 350)); // Establecer tamaño inicial
+        containerPanelAdicional.setMinimumSize(new Dimension(300, 350)); // Establecer tamaño mínimo
+
+        containerPanelAdicional.setLayout(new BoxLayout(containerPanelAdicional, BoxLayout.Y_AXIS));
+
+        // Número de paneles a crear
+        JPanel[] panelAdicionalPanels = new JPanel[4];
+
+        // Crear y agregar los paneles al contenedor del panel adicional
+        for (int i = 0; i < panelAdicionalPanels.length; i++) {
+            panelAdicionalPanels[i] = new JPanel();
+            panelAdicionalPanels[i].setBackground(miColor);
+            panelAdicionalPanels[i].setBorder(BorderFactory.createBevelBorder(1, Color.WHITE, Color.WHITE));
+            containerPanelAdicional.add(panelAdicionalPanels[i]);
+        }
+
+        body.add(panelAdicional);
+
+        //========[ CUERPO PRINCIPAL ]=================================================================
 
         // Añadir el panel body al marco principal
         frame.add(body, BorderLayout.CENTER);
