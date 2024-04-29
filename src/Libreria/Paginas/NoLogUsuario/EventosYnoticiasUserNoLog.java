@@ -1,12 +1,15 @@
-package Libreria.Paginas;
+package Libreria.Paginas.NoLogUsuario;
+
+import Libreria.Paginas.Usuario.UserMainPage;
+import Libreria.Paginas.Usuario.VisitasYsobreNosotros;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class EventosYnoticias {
-    public EventosYnoticias(){
+public class EventosYnoticiasUserNoLog {
+    public EventosYnoticiasUserNoLog(){
         // Creación del marco principal
         JFrame frame = new JFrame("Bibliopolis");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -30,14 +33,11 @@ public class EventosYnoticias {
         JLabel colecciones = new JLabel("Colecciones");
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
+        JLabel inicioSesion = new JLabel("inicioSesion");
+
 
         // Poner la letra de la página seleccionada en blanco
         eventosYNoticias.setForeground(Color.WHITE);
-
-        // Icono de usuario logueado
-        ImageIcon userLogedIcon = new ImageIcon(("src/Libreria/imagenes/user_icon_white_resize.png"));
-        JLabel inicioSesion = new JLabel(userLogedIcon);
-        JLabel underUser = new JLabel("User");
 
         // Configuración de fuentes y cursores
         Font font = new Font("Arial", Font.BOLD, 14);
@@ -52,16 +52,7 @@ public class EventosYnoticias {
         sobreNosotros.setCursor(handCursor);
         inicioSesion.setFont(font);
         inicioSesion.setCursor(handCursor);
-        underUser.setFont(font);
 
-        // Panel vertical para usuario logueado
-        JPanel vertical = new JPanel();
-        vertical.setLayout(new BoxLayout(vertical, BoxLayout.Y_AXIS));
-        vertical.setLayout(new FlowLayout());
-        vertical.setPreferredSize(new Dimension(50,50));
-        vertical.setBackground(Color.BLACK);
-        vertical.add(inicioSesion);
-        vertical.add(underUser);
 
         // Panel de botones del menú
         JPanel grupoBotones = new JPanel();
@@ -76,8 +67,9 @@ public class EventosYnoticias {
         grupoBotones.add(eventosYNoticias);
         grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(sobreNosotros);
-        grupoBotones.add(Box.createHorizontalStrut(70));
-        grupoBotones.add(vertical);
+        grupoBotones.add(Box.createHorizontalStrut(40));
+        grupoBotones.add(inicioSesion);
+
         // Añadir MouseListeners a los JLabels
         ayuda.addMouseListener(new MouseAdapter() {
             @Override
@@ -93,19 +85,12 @@ public class EventosYnoticias {
             }
         });
 
-        eventosYNoticias.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                frame.dispose();
-                EventosYnoticias eventosYnoticias = new EventosYnoticias();
-            }
-        });
 
         sobreNosotros.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.dispose();
-                VisitasYsobreNosotros visitasYsobreNosotros = new VisitasYsobreNosotros();
+                VisitasYsobreNosotrosUserNoLog visitasYsobreNosotros = new VisitasYsobreNosotrosUserNoLog();
             }
         });
 
@@ -113,7 +98,15 @@ public class EventosYnoticias {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.dispose();
-                UserMainPage visitasYsobreNosotros = new UserMainPage();
+                UserNoLogMainPage visitasYsobreNosotros = new UserNoLogMainPage();
+            }
+        });
+
+        eventosYNoticias.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                EventosYnoticiasUserNoLog eventosYnoticias = new EventosYnoticiasUserNoLog();
             }
         });
 
@@ -291,6 +284,6 @@ public class EventosYnoticias {
     }
 
     public static void main(String[] args){
-        EventosYnoticias eventosYnoticias = new EventosYnoticias();
+        EventosYnoticiasUserNoLog eventosYnoticias = new EventosYnoticiasUserNoLog();
     }
 }
