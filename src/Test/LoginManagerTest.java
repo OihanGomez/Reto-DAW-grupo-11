@@ -39,7 +39,7 @@ public class LoginManagerTest {
 
     @Test
     public void testIsAdminTrue() {
-        assertTrue(loginManager.isAdmin("usuario_administrador"));
+        assertTrue(loginManager.isAdmin("maria@example.com"));
     }
 
     @Test
