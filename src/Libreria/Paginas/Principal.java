@@ -150,7 +150,6 @@ public class Principal {
 
         frame.pack();
         frame.setVisible(true);
-        frame.setResizable(true);
         buscadorEtiqueta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -160,47 +159,19 @@ public class Principal {
 
                 Libro libro = buscadorLibro.buscarLibro(nombreLibro);
 
-// Dentro del manejador de eventos del clic del botón de búsqueda
-                // Dentro del manejador de eventos del clic del botón de búsqueda
                 if (libro != null) {
-                    // Limpiar cualquier componente existente en el panel izquierdo
-                    panelIzquerda.removeAll();
-                    panelIzquerda.setLayout(new BorderLayout()); // Establecer un diseño de BorderLayout
+                    LibroInfo libroInfo = new LibroInfo(libro);
 
-                    // Crear y agregar etiquetas para mostrar cada detalle del libro
-                    JLabel idLabel = new JLabel("ID: " + libro.getIdLibro());
-                    JLabel titleLabel = new JLabel("Título: " + libro.getTitulo());
-                    JLabel descriptionLabel = new JLabel("Descripción: " + libro.getDescripcion());
-                    JLabel priceLabel = new JLabel("Precio: " + libro.getPrecio());
-                    JLabel editorialIdLabel = new JLabel("ID Editorial: " + libro.getIdEditorial());
-
-                    // Crear una etiqueta para mostrar la imagen del libro
-                    ImageIcon coverIcon = new ImageIcon(libro.getPortadaRuta());
-                    JLabel coverLabel = new JLabel(coverIcon);
-
-                    // Agregar las etiquetas al panel izquierdo en la parte superior
-                    JPanel infoPanel = new JPanel();
-                    infoPanel.setLayout(new GridLayout(0, 1));
-                    infoPanel.add(idLabel);
-                    infoPanel.add(titleLabel);
-                    infoPanel.add(descriptionLabel);
-                    infoPanel.add(priceLabel);
-                    infoPanel.add(editorialIdLabel);
-                    panelIzquerda.add(infoPanel, BorderLayout.NORTH);
-
-                    // Agregar la etiqueta de la imagen al panel izquierdo en la parte inferior
-                    panelIzquerda.add(coverLabel, BorderLayout.CENTER);
-
-                    // Actualizar el panel para mostrar la nueva información del libro
-                    panelIzquerda.revalidate();
-                    panelIzquerda.repaint(); // Repintar el panel para asegurar que se muestren los cambios
+                    System.out.println("Instancia de LibroInfo creada correctamente.");
+                    panelIzquerda.removeAll(); // Limpiar cualquier componente existente en el panel
+                    panelIzquerda.add(libroInfo);
+ // Actualizar el panel para mostrar la nueva tarjeta del libro
                 } else {
-                    // Si el libro no se encuentra, mostrar un mensaje de error
+                    // Si el libro no se encuentra, mostrar un mensaje
                     JOptionPane.showMessageDialog(null, "El libro no fue encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-
             }
+
         });
 
     }
