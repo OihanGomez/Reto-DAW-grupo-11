@@ -1,9 +1,16 @@
 package Libreria.Paginas;
 
+import Libreria.Acciones.AdminManagement;
+import Libreria.Acciones.ConexionBD;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AdminMainPage {
     public AdminMainPage() {
@@ -141,6 +148,11 @@ public class AdminMainPage {
         panelEdit.add(correoEtiqueta);
         panelEdit.add(contraseñaEtiqueta);
 
+        //Combox
+        ConexionBD conexionBD = new ConexionBD();
+        AdminManagement adminManagement = new AdminManagement(conexionBD);
+        adminManagement.mostrarUsuarios(comboBox);
+
 
         //Panel del cuerpo
         JPanel body = new JPanel();
@@ -157,6 +169,22 @@ public class AdminMainPage {
 
         frame.pack();
         frame.setVisible(true);
+        aceptarEdit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String selectedUser = (String) comboBox.getSelectedItem();
+                String nuevaDireccion = direccion.getText();
+                String nuevoNombre = nombre.getText();
+                String nuevosApellidos = apellido.getText();
+                String nuevoCorreo = correo.getText();
+                String nuevaContraseña = contraseña.getText();
+
+                // Llamar al método actualizarUsuario de AdminManagement
+                ConexionBD conexionBD = new ConexionBD();
+                AdminManagement adminManagement = new AdminManagement(conexionBD);
+                adminManagement.actualizarUsuario(selectedUser, nuevaDireccion, nuevoNombre, nuevosApellidos, nuevoCorreo, nuevaContraseña);
+            }
+        });
     }
     public static void main(String[] args){
         AdminMainPage ver = new AdminMainPage();
