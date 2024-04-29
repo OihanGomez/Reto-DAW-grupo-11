@@ -161,6 +161,7 @@ public class Principal {
 
                 if (libro != null) {
                     LibroInfo libroInfo = new LibroInfo(libro);
+                    System.out.println("Instancia de LibroInfo creada correctamente.");
                     panelIzquerda.removeAll(); // Limpiar cualquier componente existente en el panel
                     panelIzquerda.add(libroInfo);
                     panelIzquerda.revalidate(); // Actualizar el panel para mostrar la nueva tarjeta del libro

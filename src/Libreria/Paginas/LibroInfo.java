@@ -22,15 +22,20 @@ public class LibroInfo extends JPanel {
         isbnLabel = new JLabel("ISBN: " + libro.getIdEditorial());
         editorialLabel = new JLabel("Precio: " + libro.getPrecio());
 
-
         detallesPanel.add(tituloLabel);
         detallesPanel.add(autorLabel);
         detallesPanel.add(isbnLabel);
         detallesPanel.add(editorialLabel);
 
         imagenLabel = new JLabel();
-        ImageIcon imagen = new ImageIcon(libro.getPortadaRuta());
-        imagenLabel.setIcon(imagen);
+        try {
+            ImageIcon imagen = new ImageIcon(libro.getPortadaRuta());
+            imagenLabel.setIcon(imagen);
+        } catch (Exception e) {
+            System.out.println("Error al cargar la imagen: " + e.getMessage());
+            ImageIcon imagenPorDefecto = new ImageIcon("src/Libreria/imagenes/logo.png");
+            imagenLabel.setIcon(imagenPorDefecto);
+        }
 
         add(imagenLabel, BorderLayout.CENTER);
         add(detallesPanel, BorderLayout.SOUTH);

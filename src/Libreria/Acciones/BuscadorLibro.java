@@ -23,7 +23,7 @@ public class BuscadorLibro {
                     String descripcion = resultSet.getString("descripcion");
                     Double precio = resultSet.getDouble("precio");
                     Integer id_editorial = resultSet.getInt("id_editorial");
-                    String portadaRuta = resultSet.getString("Imagen");
+                    String portadaRuta = resultSet.getString("rutaImagen");
 
                     Libro libro = new Libro(id_libro,titulo,descripcion,precio,id_editorial,portadaRuta);
 
