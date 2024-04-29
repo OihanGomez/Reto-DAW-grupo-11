@@ -12,7 +12,7 @@ public class LoginManager {
     public boolean login(String username, String password) {
         // Hay que revisar bien el codigo aun.
         try {
-            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM usuario WHERE email = ? AND password = ?";
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);

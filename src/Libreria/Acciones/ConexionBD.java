@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class ConexionBD {
     // Atributos para la conexión
-    static final String SERVER_IP = "10.14.0.55";
+    static final String SERVER_IP = "127.0.0.1";
     static final String DB_NAME = "Biblioteca";
-    static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
-    static final String DB_URL = "jdbc:oracle:thin:" + SERVER_IP + ":1521/" + DB_NAME;
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://" + SERVER_IP + ":3306/" + DB_NAME;
 
     // Database credentials
-    static final String USER = "grupo11";
-    static final String PASSWORD = "grupo11";
+    static final String USER = "root";
+    static final String PASSWORD = "zubiri";
 
     private Connection connection;
 

@@ -29,7 +29,7 @@ public class LoginManagerTest {
 
     @Test
     public void testLoginSuccess() {
-        assertTrue(loginManager.login("usuario_valido", "contraseña_valida"));
+        assertTrue(loginManager.login("juan@example.com", "contraseña123"));
     }
 
     @Test
@@ -44,6 +44,6 @@ public class LoginManagerTest {
 
     @Test
     public void testIsAdminFalse() {
-        assertFalse(loginManager.isAdmin("usuario_no_administrador"));
+        assertFalse(loginManager.isAdmin("juan@example.com"));
     }
 }
