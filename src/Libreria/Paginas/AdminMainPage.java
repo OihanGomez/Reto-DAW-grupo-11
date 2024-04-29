@@ -179,10 +179,14 @@ public class AdminMainPage {
                 String nuevoCorreo = correo.getText();
                 String nuevaContraseña = contraseña.getText();
 
-                // Llamar al método actualizarUsuario de AdminManagement
-                ConexionBD conexionBD = new ConexionBD();
-                AdminManagement adminManagement = new AdminManagement(conexionBD);
-                adminManagement.actualizarUsuario(selectedUser, nuevaDireccion, nuevoNombre, nuevosApellidos, nuevoCorreo, nuevaContraseña);
+                if (nuevaDireccion.isEmpty() || nuevoNombre.isEmpty() || nuevosApellidos.isEmpty() || nuevoCorreo.isEmpty() || nuevaContraseña.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Llamar al método actualizarUsuario de AdminManagement
+                    ConexionBD conexionBD = new ConexionBD();
+                    AdminManagement adminManagement = new AdminManagement(conexionBD);
+                    adminManagement.actualizarUsuario(selectedUser, nuevaDireccion, nuevoNombre, nuevosApellidos, nuevoCorreo, nuevaContraseña);
+                }
             }
         });
     }
