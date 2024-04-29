@@ -1,7 +1,11 @@
-package Libreria.Paginas;
+package Libreria.Paginas.NoLogUsuario;
+
 
 import Libreria.Acciones.BuscadorLibro;
 import Libreria.Acciones.ConexionBD;
+import Libreria.Paginas.TextPrompt;
+import Libreria.Paginas.Usuario.EventosYnoticias;
+import Libreria.Paginas.Usuario.VisitasYsobreNosotros;
 import Libreria.objetos.Libro;
 
 import javax.swing.*;
@@ -11,8 +15,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class UserMainPage {
-    public UserMainPage(){
+public class UserNoLogMainPage {
+    public UserNoLogMainPage(){
         JFrame frame = new JFrame("Bibliopolis");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(900,600));
@@ -29,19 +33,15 @@ public class UserMainPage {
         //Icono del logo en el encabezado a la izquierda
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
+        etiquetaFoto1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //Botones colocados en el encabezado en el centro
         JLabel ayuda = new JLabel("Ayuda con...");
         JLabel colecciones = new JLabel("Colecciones");
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
+        JLabel inicioSesion = new JLabel("inicioSesion");
 
-        //Icono de del usuario en el encabezado a la derecha
-        ImageIcon userLogedIcon = new ImageIcon(("src/Libreria/imagenes/user_icon_white_resize.png"));
-        JLabel inicioSesion = new JLabel(userLogedIcon);
-
-        //Texto debajo del icono del usuario
-        JLabel underUser = new JLabel("User");
 
         //Cambio del color de los botones del encabezado
         ayuda.setForeground(Color.WHITE);
@@ -49,7 +49,6 @@ public class UserMainPage {
         eventosYNoticias.setForeground(Color.WHITE);
         sobreNosotros.setForeground(Color.WHITE);
         inicioSesion.setForeground(Color.WHITE);
-        underUser.setForeground(Color.WHITE);
 
         //Formatos de texto de los botones del encabezado
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
@@ -71,7 +70,6 @@ public class UserMainPage {
         vertical.setPreferredSize(new Dimension(50,50));
         vertical.setBackground(Color.BLACK);
         vertical.add(inicioSesion);
-        vertical.add(underUser);
 
         //Panel para agrupar los botones del encabezado
         JPanel grupoBotones = new JPanel();
@@ -86,8 +84,8 @@ public class UserMainPage {
         grupoBotones.add(eventosYNoticias);
         grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(sobreNosotros);
-        grupoBotones.add(Box.createHorizontalStrut(70));
-        grupoBotones.add(vertical);
+        grupoBotones.add(Box.createHorizontalStrut(40));
+        grupoBotones.add(inicioSesion);
 
         //Panel dentro del encabezado donde se mete todo el contenido, los paneles anteriores
         JPanel headerPanel = new JPanel(new BorderLayout());
@@ -156,7 +154,7 @@ public class UserMainPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.dispose();
-                EventosYnoticias eventosYnoticias = new EventosYnoticias();
+                EventosYnoticiasUserNoLog eventosYnoticias = new EventosYnoticiasUserNoLog();
             }
         });
 
@@ -164,7 +162,7 @@ public class UserMainPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.dispose();
-                VisitasYsobreNosotros visitasYsobreNosotros = new VisitasYsobreNosotros();
+                VisitasYsobreNosotrosUserNoLog visitasYsobreNosotros = new VisitasYsobreNosotrosUserNoLog();
             }
         });
 
@@ -172,7 +170,7 @@ public class UserMainPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.dispose();
-                UserMainPage visitasYsobreNosotros = new UserMainPage();
+                UserNoLogMainPage visitasYsobreNosotros = new UserNoLogMainPage();
             }
         });
 
@@ -272,7 +270,7 @@ public class UserMainPage {
         });
     }
     public static void main(String[] args){
-        UserMainPage ver = new UserMainPage();
+       UserNoLogMainPage ver = new UserNoLogMainPage();
     }
 
 }

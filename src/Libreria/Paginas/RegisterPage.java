@@ -2,6 +2,7 @@ package Libreria.Paginas;
 
 import Libreria.Acciones.ConexionBD;
 import Libreria.Acciones.RegisterManager;
+import Libreria.Paginas.Usuario.UserMainPage;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;

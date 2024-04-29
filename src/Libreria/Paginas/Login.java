@@ -2,6 +2,8 @@ package Libreria.Paginas;
 
 import Libreria.Acciones.ConexionBD;
 import Libreria.Acciones.LoginManager;
+import Libreria.Paginas.Admin.AdminMainPage;
+import Libreria.Paginas.Usuario.UserMainPage;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;

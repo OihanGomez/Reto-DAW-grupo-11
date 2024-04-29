@@ -1,4 +1,4 @@
-package Libreria.Paginas;
+package Libreria.Paginas.Admin;
 
 import Libreria.Acciones.AdminManagement;
 import Libreria.Acciones.ConexionBD;
@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
