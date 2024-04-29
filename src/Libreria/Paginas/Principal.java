@@ -1,9 +1,5 @@
 package Libreria.Paginas;
 
-import Libreria.Acciones.BuscadorLibro;
-import Libreria.Acciones.ConexionBD;
-import Libreria.objetos.Libro;
-
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -108,6 +104,13 @@ public class Principal {
         JLabel buscadorEtiqueta = new JLabel(buscadorIcono);
         buscadorEtiqueta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        buscadorEtiqueta.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String nombreLibro = buscadorTexto.getText();
+                //buscadorEtiqueta(nombreLibro);
+            }
+        });
 
         //Panel del contenido de dentro del "panelAbajo"
         JPanel abajoContenido = new JPanel();
@@ -150,28 +153,6 @@ public class Principal {
 
         frame.pack();
         frame.setVisible(true);
-        buscadorEtiqueta.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                String nombreLibro = buscadorTexto.getText();
-                ConexionBD conexion = new ConexionBD();
-                BuscadorLibro buscadorLibro = new BuscadorLibro(conexion);
-
-                Libro libro = buscadorLibro.buscarLibro(nombreLibro);
-
-                if (libro != null) {
-                    LibroInfo libroInfo = new LibroInfo(libro);
-                    panelIzquerda.removeAll(); // Limpiar cualquier componente existente en el panel
-                    panelIzquerda.add(libroInfo);
-                    panelIzquerda.revalidate(); // Actualizar el panel para mostrar la nueva tarjeta del libro
-                } else {
-                    // Si el libro no se encuentra, mostrar un mensaje
-                    JOptionPane.showMessageDialog(null, "El libro no fue encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-        });
-
     }
 
     public static void main(String[] args){
