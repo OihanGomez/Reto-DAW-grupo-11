@@ -23,6 +23,7 @@ public class EventosYnoticias {
         // Logo
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
+        etiquetaFoto1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Etiquetas del menú
         JLabel ayuda = new JLabel("Ayuda con...");
@@ -105,6 +106,14 @@ public class EventosYnoticias {
             public void mouseClicked(MouseEvent e) {
                 frame.dispose();
                 VisitasYsobreNosotros visitasYsobreNosotros = new VisitasYsobreNosotros();
+            }
+        });
+
+        etiquetaFoto1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                UserMainPage visitasYsobreNosotros = new UserMainPage();
             }
         });
 
