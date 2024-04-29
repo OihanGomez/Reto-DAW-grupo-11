@@ -161,10 +161,11 @@ public class Principal {
 
                 if (libro != null) {
                     LibroInfo libroInfo = new LibroInfo(libro);
+
                     System.out.println("Instancia de LibroInfo creada correctamente.");
                     panelIzquerda.removeAll(); // Limpiar cualquier componente existente en el panel
                     panelIzquerda.add(libroInfo);
-                    panelIzquerda.revalidate(); // Actualizar el panel para mostrar la nueva tarjeta del libro
+ // Actualizar el panel para mostrar la nueva tarjeta del libro
                 } else {
                     // Si el libro no se encuentra, mostrar un mensaje
                     JOptionPane.showMessageDialog(null, "El libro no fue encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
