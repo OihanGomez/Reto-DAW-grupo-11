@@ -64,13 +64,13 @@ public class Login {
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = userText.getText();
+                String email = userText.getText();
                 String password = passwordText.getText();
                 ConexionBD conexionBD = new ConexionBD();
                 LoginManager loginManager = new LoginManager(conexionBD);
 
-                boolean estaLogueado = loginManager.login(username, password);
-                boolean esAdmin = loginManager.isAdmin(username);
+                boolean estaLogueado = loginManager.login(email, password);
+                boolean esAdmin = loginManager.isAdmin(email);
                 if (estaLogueado && esAdmin){
                     frame.dispose();
                     AdminMainPage adminMainPage = new AdminMainPage();
@@ -80,7 +80,6 @@ public class Login {
                     UserMainPage userMainPage = new UserMainPage();
 
                 }else {
-                    frame.dispose();
                     // Mostrar error
                     JOptionPane.showMessageDialog(frame, "Credenciales incorrectas. Por favor, inténtalo de nuevo.", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
                 }
