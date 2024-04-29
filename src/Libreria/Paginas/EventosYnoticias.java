@@ -2,6 +2,8 @@ package Libreria.Paginas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EventosYnoticias {
     public EventosYnoticias(){
@@ -75,6 +77,36 @@ public class EventosYnoticias {
         grupoBotones.add(sobreNosotros);
         grupoBotones.add(Box.createHorizontalStrut(70));
         grupoBotones.add(vertical);
+        // Añadir MouseListeners a los JLabels
+        ayuda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+
+        colecciones.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+
+        eventosYNoticias.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                EventosYnoticias eventosYnoticias = new EventosYnoticias();
+            }
+        });
+
+        sobreNosotros.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                VisitasYsobreNosotros visitasYsobreNosotros = new VisitasYsobreNosotros();
+            }
+        });
 
         // Panel de encabezado que contiene el logo y los botones del menú
         JPanel headerPanel = new JPanel(new BorderLayout());
