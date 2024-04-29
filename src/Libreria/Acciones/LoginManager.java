@@ -11,7 +11,6 @@ public class LoginManager {
     }
 
     public boolean login(String email, String contrasena) {
-        // Hay que revisar bien el codigo aun.
         try {
             String query = "SELECT * FROM usuarios WHERE email = ? AND contrasena = ?";
             PreparedStatement statement = conexion.prepareStatement(query);
