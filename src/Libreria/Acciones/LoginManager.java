@@ -1,6 +1,7 @@
 package Libreria.Acciones;
 
 import java.sql.*;
+import java.util.Objects;
 
 public class LoginManager {
     private Connection conexion;
@@ -9,20 +10,19 @@ public class LoginManager {
         this.conexion = conexionBD.getConexion();
     }
 
-    public boolean login(String username, String password) {
-        // Hay que revisar bien el codigo aun.
+    public boolean login(String email, String contrasena) {
         try {
-            String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM usuarios WHERE email = ? AND contrasena = ?";
             PreparedStatement statement = conexion.prepareStatement(query);
-            statement.setString(1, username);
-            statement.setString(2, password);
+            statement.setString(1, email);
+            statement.setString(2, contrasena);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                System.out.println("¡Inicio de sesión exitoso para " + username + "!");
+                System.out.println("¡Inicio de sesión exitoso para " + email + "!");
                 return true;
             } else {
-                System.out.println("Nombre de usuario o contraseña incorrectos.");
+                System.out.println("Email o contraseña incorrectos.");
                 return false;
             }
         } catch (SQLException e) {
@@ -31,21 +31,21 @@ public class LoginManager {
         }
     }
 
-    public boolean isAdmin (String username){
-        try{
-            String query = "SELECT admin FROM usuarios WHERE username = ?";
+    public boolean isAdmin(String email) {
+        try {
+            String query = "SELECT admin FROM usuarios WHERE email = ?";
             PreparedStatement statement = conexion.prepareStatement(query);
-            statement.setString(1,username);
+            statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                boolean isAdmin = resultSet.getBoolean("admin");
-                return isAdmin;
+                String admin = resultSet.getString("admin");
+                return admin.equals("Y");
             }
-
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
 }
