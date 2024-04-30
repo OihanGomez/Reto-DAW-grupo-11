@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConexionBD {
     // Atributos para la conexión
-    static final String SERVER_IP = "192.168.56.101";
+    static final String SERVER_IP = "10.14.0.106";
     static final String DB_NAME = "Biblioteca";
     static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
     static final String DB_URL = "jdbc:oracle:thin:@" + SERVER_IP + ":1521:" + "ORCL";
