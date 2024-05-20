@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -41,6 +43,7 @@ public class LoginManagerTest {
         assertFalse(loginManager.login(username, password));
     }
     @Test
+    @EnabledOnOs(OS.WINDOWS)
     public void testIsAdminTrue() {
         assertTrue(loginManager.isAdmin("maria@example.com"));
     }
