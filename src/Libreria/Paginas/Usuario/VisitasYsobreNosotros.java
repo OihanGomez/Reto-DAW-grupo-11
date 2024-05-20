@@ -1,4 +1,6 @@
-package Libreria.Paginas;
+package Libreria.Paginas.Usuario;
+
+import Libreria.Paginas.TextPrompt;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,12 +26,30 @@ public class VisitasYsobreNosotros {
         // Logo
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
+        etiquetaFoto1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Etiquetas del menú
         JLabel ayuda = new JLabel("Ayuda con...");
         JLabel colecciones = new JLabel("Colecciones");
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
+
+
+        //Icono de del usuario en el encabezado a la derecha
+        ImageIcon userLogedIcon = new ImageIcon(("src/Libreria/imagenes/user_icon_white_resize.png"));
+        JLabel inicioSesion = new JLabel(userLogedIcon);
+
+        //Texto debajo del icono del usuario
+        JLabel underUser = new JLabel("User");
+
+        //Panel donde se encuentran el icono del usuario y el nombre del usuario
+        JPanel vertical= new JPanel();
+        vertical.setLayout(new BoxLayout(vertical, BoxLayout.Y_AXIS));
+        vertical.setLayout(new FlowLayout());
+        vertical.setPreferredSize(new Dimension(50,50));
+        vertical.setBackground(Color.BLACK);
+        vertical.add(inicioSesion);
+        vertical.add(underUser);
 
         // Poner la letra de la página seleccionada en blanco
         sobreNosotros.setForeground(Color.WHITE);
@@ -59,6 +79,8 @@ public class VisitasYsobreNosotros {
         grupoBotones.add(eventosYNoticias);
         grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(sobreNosotros);
+        grupoBotones.add(Box.createHorizontalStrut(70));
+        grupoBotones.add(vertical);
 
 
         // Panel de encabezado que contiene el logo y los botones del menú
@@ -96,6 +118,14 @@ public class VisitasYsobreNosotros {
             public void mouseClicked(MouseEvent e) {
                 frame.dispose();
                 VisitasYsobreNosotros visitasYsobreNosotros = new VisitasYsobreNosotros();
+            }
+        });
+
+        etiquetaFoto1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                UserMainPage visitasYsobreNosotros = new UserMainPage();
             }
         });
 

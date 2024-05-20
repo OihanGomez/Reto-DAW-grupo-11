@@ -1,4 +1,12 @@
-package Libreria.Paginas;
+package Libreria.Paginas.NoLogUsuario;
+
+
+import Libreria.Acciones.BuscadorLibro;
+import Libreria.Acciones.ConexionBD;
+import Libreria.Paginas.TextPrompt;
+import Libreria.Paginas.Usuario.EventosYnoticias;
+import Libreria.Paginas.Usuario.VisitasYsobreNosotros;
+import Libreria.objetos.Libro;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -7,8 +15,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class UserMainPage {
-    public UserMainPage(){
+public class UserNoLogMainPage {
+    public UserNoLogMainPage(){
         JFrame frame = new JFrame("Bibliopolis");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(900,600));
@@ -25,19 +33,15 @@ public class UserMainPage {
         //Icono del logo en el encabezado a la izquierda
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
         JLabel etiquetaFoto1 = new JLabel(logo);
+        etiquetaFoto1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //Botones colocados en el encabezado en el centro
         JLabel ayuda = new JLabel("Ayuda con...");
         JLabel colecciones = new JLabel("Colecciones");
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
+        JLabel inicioSesion = new JLabel("inicioSesion");
 
-        //Icono de del usuario en el encabezado a la derecha
-        ImageIcon userLogedIcon = new ImageIcon(("src/Libreria/imagenes/user_icon_white_resize.png"));
-        JLabel inicioSesion = new JLabel(userLogedIcon);
-
-        //Texto debajo del icono del usuario
-        JLabel underUser = new JLabel("User");
 
         //Cambio del color de los botones del encabezado
         ayuda.setForeground(Color.WHITE);
@@ -45,7 +49,6 @@ public class UserMainPage {
         eventosYNoticias.setForeground(Color.WHITE);
         sobreNosotros.setForeground(Color.WHITE);
         inicioSesion.setForeground(Color.WHITE);
-        underUser.setForeground(Color.WHITE);
 
         //Formatos de texto de los botones del encabezado
         ayuda.setFont(new Font("Arial",Font.BOLD,14));
@@ -58,6 +61,7 @@ public class UserMainPage {
         sobreNosotros.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         inicioSesion.setFont(new Font("Arial",Font.BOLD,14));
         inicioSesion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        etiquetaFoto1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //Panel donde se encuentran el icono del usuario y el nombre del usuario
         JPanel vertical= new JPanel();
@@ -66,7 +70,6 @@ public class UserMainPage {
         vertical.setPreferredSize(new Dimension(50,50));
         vertical.setBackground(Color.BLACK);
         vertical.add(inicioSesion);
-        vertical.add(underUser);
 
         //Panel para agrupar los botones del encabezado
         JPanel grupoBotones = new JPanel();
@@ -81,8 +84,8 @@ public class UserMainPage {
         grupoBotones.add(eventosYNoticias);
         grupoBotones.add(Box.createHorizontalStrut(40));
         grupoBotones.add(sobreNosotros);
-        grupoBotones.add(Box.createHorizontalStrut(70));
-        grupoBotones.add(vertical);
+        grupoBotones.add(Box.createHorizontalStrut(40));
+        grupoBotones.add(inicioSesion);
 
         //Panel dentro del encabezado donde se mete todo el contenido, los paneles anteriores
         JPanel headerPanel = new JPanel(new BorderLayout());
@@ -132,6 +135,44 @@ public class UserMainPage {
             }
         });
 
+        // Añadir MouseListeners a los JLabels
+        ayuda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+
+        colecciones.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+
+        eventosYNoticias.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                EventosYnoticiasUserNoLog eventosYnoticias = new EventosYnoticiasUserNoLog();
+            }
+        });
+
+        sobreNosotros.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                VisitasYsobreNosotrosUserNoLog visitasYsobreNosotros = new VisitasYsobreNosotrosUserNoLog();
+            }
+        });
+
+        etiquetaFoto1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                UserNoLogMainPage visitasYsobreNosotros = new UserNoLogMainPage();
+            }
+        });
 
         //Panel del contenido de dentro del "panelAbajo"
         JPanel abajoContenido = new JPanel();
@@ -175,9 +216,61 @@ public class UserMainPage {
 
         frame.pack();
         frame.setVisible(true);
+
+        buscadorEtiqueta.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String nombreLibro = buscadorTexto.getText();
+                ConexionBD conexion = new ConexionBD();
+                BuscadorLibro buscadorLibro = new BuscadorLibro(conexion);
+
+                Libro libro = buscadorLibro.buscarLibro(nombreLibro);
+
+// Dentro del manejador de eventos del clic del botón de búsqueda
+                // Dentro del manejador de eventos del clic del botón de búsqueda
+                if (libro != null) {
+                    // Limpiar cualquier componente existente en el panel izquierdo
+                    panelIzquerda.removeAll();
+                    panelIzquerda.setLayout(new BorderLayout()); // Establecer un diseño de BorderLayout
+
+                    // Crear y agregar etiquetas para mostrar cada detalle del libro
+                    JLabel idLabel = new JLabel("ID: " + libro.getIdLibro());
+                    JLabel titleLabel = new JLabel("Título: " + libro.getTitulo());
+                    JLabel descriptionLabel = new JLabel("Descripción: " + libro.getDescripcion());
+                    JLabel priceLabel = new JLabel("Precio: " + libro.getPrecio());
+                    JLabel editorialIdLabel = new JLabel("ID Editorial: " + libro.getIdEditorial());
+
+                    // Crear una etiqueta para mostrar la imagen del libro
+                    ImageIcon coverIcon = new ImageIcon(libro.getPortadaRuta());
+                    JLabel coverLabel = new JLabel(coverIcon);
+
+                    // Agregar las etiquetas al panel izquierdo en la parte superior
+                    JPanel infoPanel = new JPanel();
+                    infoPanel.setLayout(new GridLayout(0, 1));
+                    infoPanel.add(idLabel);
+                    infoPanel.add(titleLabel);
+                    infoPanel.add(descriptionLabel);
+                    infoPanel.add(priceLabel);
+                    infoPanel.add(editorialIdLabel);
+                    panelIzquerda.add(infoPanel, BorderLayout.NORTH);
+
+                    // Agregar la etiqueta de la imagen al panel izquierdo en la parte inferior
+                    panelIzquerda.add(coverLabel, BorderLayout.CENTER);
+
+                    // Actualizar el panel para mostrar la nueva información del libro
+                    panelIzquerda.revalidate();
+                    panelIzquerda.repaint(); // Repintar el panel para asegurar que se muestren los cambios
+                } else {
+                    // Si el libro no se encuentra, mostrar un mensaje de error
+                    JOptionPane.showMessageDialog(null, "El libro no fue encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+
+            }
+        });
     }
     public static void main(String[] args){
-        UserMainPage ver = new UserMainPage();
+       UserNoLogMainPage ver = new UserNoLogMainPage();
     }
 
 }

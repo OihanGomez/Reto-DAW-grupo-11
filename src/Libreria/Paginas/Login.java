@@ -2,6 +2,8 @@ package Libreria.Paginas;
 
 import Libreria.Acciones.ConexionBD;
 import Libreria.Acciones.LoginManager;
+import Libreria.Paginas.Admin.AdminMainPage;
+import Libreria.Paginas.Usuario.UserMainPage;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -64,13 +66,13 @@ public class Login {
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = userText.getText();
+                String email = userText.getText();
                 String password = passwordText.getText();
                 ConexionBD conexionBD = new ConexionBD();
                 LoginManager loginManager = new LoginManager(conexionBD);
 
-                boolean estaLogueado = loginManager.login(username, password);
-                boolean esAdmin = loginManager.isAdmin(username);
+                boolean estaLogueado = loginManager.login(email, password);
+                boolean esAdmin = loginManager.isAdmin(email);
                 if (estaLogueado && esAdmin){
                     frame.dispose();
                     AdminMainPage adminMainPage = new AdminMainPage();
@@ -80,7 +82,6 @@ public class Login {
                     UserMainPage userMainPage = new UserMainPage();
 
                 }else {
-                    frame.dispose();
                     // Mostrar error
                     JOptionPane.showMessageDialog(frame, "Credenciales incorrectas. Por favor, inténtalo de nuevo.", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
                 }
@@ -101,6 +102,20 @@ public class Login {
         JLabel regist = new JLabel("Regístrate");
         regist.setBounds(110,240,90,30);
         regist.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        regist.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                // Cerrar la ventana actual
+                frame.dispose();
+
+                // Abrir una nueva ventana
+                RegisterPage registerPage = new RegisterPage(); // Reemplaza "OtraVentana" con el nombre de tu clase de ventana
+            }
+        });
+
 
         //Icono del logo en el encabezado
         ImageIcon logo = new ImageIcon("src/Libreria/imagenes/logo_blanco.png");
