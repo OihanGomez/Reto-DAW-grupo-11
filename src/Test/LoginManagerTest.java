@@ -1,13 +1,16 @@
 package Test;
 
-import static org.junit.Assert.*;
-
 import Libreria.Acciones.ConexionBD;
 import Libreria.Acciones.LoginManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import java.sql.*;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class LoginManagerTest {
 
@@ -26,17 +29,17 @@ public class LoginManagerTest {
         // Cerrar la conexión a la base de datos
         conexionBD.desconectar();
     }
-
     @Test
+    @RepeatedTest(3)
     public void testLoginSuccess() {
         assertTrue(loginManager.login("juan@example.com", "contraseña123"));
     }
 
-    @Test
-    public void testLoginFailure() {
-        assertFalse(loginManager.login("usuario_invalido", "contraseña_invalida"));
+    @ParameterizedTest
+    @CsvFileSource(resources = "login_failure.csv")
+    public void testLoginFailure(String username, String password) {
+        assertFalse(loginManager.login(username, password));
     }
-
     @Test
     public void testIsAdminTrue() {
         assertTrue(loginManager.isAdmin("maria@example.com"));

@@ -1,8 +1,12 @@
 package Libreria;
 
-import static org.junit.Assert.*;
-import org.junit.*;
-import Libreria.Acciones.*;
+import Libreria.Acciones.ConexionBD;
+import Libreria.Acciones.LoginManager;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class LoginManagerTest {
     private static ConexionBD conexionBD;
@@ -10,7 +14,7 @@ public class LoginManagerTest {
 
     @BeforeClass
     public static void setUpBeforeClass() {
-        conexionBD = new ConexionBD(); // O ajusta esto si necesitas configuración específica
+        conexionBD = new ConexionBD();
         loginManager = new LoginManager(conexionBD);
     }
 

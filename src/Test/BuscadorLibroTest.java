@@ -1,12 +1,17 @@
 package Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import Libreria.Acciones.BuscadorLibro;
 import Libreria.Acciones.ConexionBD;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-class BuscadorLibroTest {
+import java.sql.SQLException;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+public class BuscadorLibroTest {
 
     private static ConexionBD conexionBD;
     private static BuscadorLibro buscadorLibro;
@@ -18,7 +23,8 @@ class BuscadorLibroTest {
     }
 
     @AfterAll
-    static void tearDown() {
+    static void tearDown() throws SQLException {
+        conexionBD.desconectar();
     }
 
     @Test
