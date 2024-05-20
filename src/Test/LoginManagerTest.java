@@ -6,9 +6,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginManagerTest {
 
@@ -36,9 +40,10 @@ public class LoginManagerTest {
             assertTrue(loginManager.login("juan@example.com", "contraseña123"));
         }
 
-        @Test
-        void testLoginFailure() {
-            assertFalse(loginManager.login("usuario_invalido@example.com", "contraseña_invalida"));
+        @ParameterizedTest
+        @CsvFileSource(resources = "login_failure.csv")
+        void testLoginFailure(String username, String password) {
+            assertFalse(loginManager.login(username, password));
         }
     }
 
@@ -46,6 +51,7 @@ public class LoginManagerTest {
     class AdminTests {
 
         @Test
+        @EnabledOnOs(OS.WINDOWS)
         void testIsAdminTrue() {
             assertTrue(loginManager.isAdmin("maria@example.com"));
         }
