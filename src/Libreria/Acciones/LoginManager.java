@@ -11,41 +11,43 @@ public class LoginManager {
     }
 
     public boolean login(String email, String contrasena) {
-        try {
-            String query = "SELECT * FROM usuarios WHERE email = ? AND contrasena = ?";
-            PreparedStatement statement = conexion.prepareStatement(query);
+        String query = "SELECT * FROM usuarios WHERE email = ? AND contrasena = ?";
+        try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setString(1, email);
             statement.setString(2, contrasena);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                System.out.println("¡Inicio de sesión exitoso para " + email + "!");
-                return true;
-            } else {
-                System.out.println("Email o contraseña incorrectos.");
-                return false;
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    System.out.println("¡Inicio de sesión exitoso para " + email + "!");
+                    return true;
+                } else {
+                    System.out.println("Email o contraseña incorrectos.");
+                    return false;
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         }
     }
+
 
     public boolean isAdmin(String email) {
-        try {
-            String query = "SELECT admin FROM usuarios WHERE email = ?";
-            PreparedStatement statement = conexion.prepareStatement(query);
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
+        String query = "SELECT admin FROM usuarios WHERE email = ?";
 
-            if (resultSet.next()) {
-                String admin = resultSet.getString("admin");
-                return admin.equals("Y");
+        try (PreparedStatement statement = conexion.prepareStatement(query)) {
+            statement.setString(1, email);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String admin = resultSet.getString("admin");
+                    return admin.equals("Y");
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
         return false;
     }
+
 
 }
