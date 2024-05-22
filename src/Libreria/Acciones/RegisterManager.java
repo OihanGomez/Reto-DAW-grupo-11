@@ -13,17 +13,15 @@ public class RegisterManager {
     }
 
     public boolean register(String email, String password, String name, String lastName, String address) {
-        try {
-            // Verificar si el correo electrónico ya está registrado
-            if (emailExists(email)) {
-                System.out.println("El correo electrónico ya está registrado.");
-                return false;
-            }
+        if (emailExists(email)) {
+            System.out.println("El correo electrónico ya está registrado.");
+            return false;
+        }
 
-            // Insertar nuevo usuario en la base de datos
-            String query = "INSERT INTO usuarios (id_usuario, direccion, apellidos, nombre, email, admin, contrasena) " +
-                    "VALUES (new_usuario_seq.nextval, ?, ?, ?, ?, 'N', ?)";
-            PreparedStatement statement = conexion.prepareStatement(query);
+        String query = "INSERT INTO usuarios (id_usuario, direccion, apellidos, nombre, email, admin, contrasena) " +
+                "VALUES (new_usuario_seq.nextval, ?, ?, ?, ?, 'N', ?)";
+
+        try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setString(1, address); // Dirección
             statement.setString(2, lastName); // Apellidos
             statement.setString(3, name); // Nombre
@@ -34,26 +32,34 @@ public class RegisterManager {
             if (rowsInserted > 0) {
                 System.out.println("¡Registro exitoso para " + email + "!");
                 return true;
+            } else {
+                System.err.println("No se pudo completar el registro para " + email + ".");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logError("Error al registrar el usuario: " + email, e);
         }
         return false;
     }
-
-
 
     private boolean emailExists(String email) {
-        try {
-            String query = "SELECT * FROM usuarios WHERE email = ?";
-            PreparedStatement statement = conexion.prepareStatement(query);
+        String query = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
+        try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-
-            return resultSet.next(); // Retorna true si existe algún resultado
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logError("Error al verificar si el correo electrónico existe: " + email, e);
         }
         return false;
     }
+
+    private void logError(String message, SQLException e) {
+        // Aquí podrías usar un sistema de logging como Log4j, SLF4J, etc.
+        System.err.println(message);
+        e.printStackTrace(System.err);
+    }
+
 }
