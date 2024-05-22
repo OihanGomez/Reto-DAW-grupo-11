@@ -11,6 +11,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 public class UserMainPage {
     public UserMainPage(){
@@ -230,48 +231,71 @@ public class UserMainPage {
 
                 Libro libro = buscadorLibro.buscarLibro(nombreLibro);
 
-// Dentro del manejador de eventos del clic del botón de búsqueda
-                // Dentro del manejador de eventos del clic del botón de búsqueda
                 if (libro != null) {
-                    // Limpiar cualquier componente existente en el panel izquierdo
                     panelIzquerda.removeAll();
-                    panelIzquerda.setLayout(new BorderLayout()); // Establecer un diseño de BorderLayout
+                    panelIzquerda.setLayout(new BoxLayout(panelIzquerda, BoxLayout.Y_AXIS));
 
-                    // Crear y agregar etiquetas para mostrar cada detalle del libro
-                    JLabel idLabel = new JLabel("ID: " + libro.getIdLibro());
+                    // Crear panel para la carta del libro
+                    JPanel bookCard = new JPanel();
+                    bookCard.setLayout(new BoxLayout(bookCard, BoxLayout.X_AXIS));
+                    bookCard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                    // Panel de información del libro
+                    JPanel infoPanel = new JPanel();
+                    infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+
+                    // Agregar etiquetas de información
                     JLabel titleLabel = new JLabel("Título: " + libro.getTitulo());
-                    JLabel descriptionLabel = new JLabel("Descripción: " + libro.getDescripcion());
+                    JLabel descriptionLabel = new JLabel("<html>Descripción: " + libro.getDescripcion() + "</html>");
                     JLabel priceLabel = new JLabel("Precio: " + libro.getPrecio());
                     JLabel editorialIdLabel = new JLabel("ID Editorial: " + libro.getIdEditorial());
 
-                    // Crear una etiqueta para mostrar la imagen del libro
-                    ImageIcon coverIcon = new ImageIcon(libro.getPortadaRuta());
-                    JLabel coverLabel = new JLabel(coverIcon);
-
-                    // Agregar las etiquetas al panel izquierdo en la parte superior
-                    JPanel infoPanel = new JPanel();
-                    infoPanel.setLayout(new GridLayout(0, 1));
-                    infoPanel.add(idLabel);
                     infoPanel.add(titleLabel);
                     infoPanel.add(descriptionLabel);
                     infoPanel.add(priceLabel);
                     infoPanel.add(editorialIdLabel);
-                    panelIzquerda.add(infoPanel, BorderLayout.NORTH);
 
-                    // Agregar la etiqueta de la imagen al panel izquierdo en la parte inferior
-                    panelIzquerda.add(coverLabel, BorderLayout.CENTER);
+                    // Crear la etiqueta de la imagen del libro
+                    String imagePath = libro.getPortadaRuta();
+                    File imageFile = new File(imagePath);
+                    if (!imageFile.isAbsolute()) {
+                        imageFile = new File(System.getProperty("user.dir"), imagePath); // Construir ruta absoluta
+                    }
 
-                    // Actualizar el panel para mostrar la nueva información del libro
+                    // Cargar y redimensionar la imagen
+                    ImageIcon originalIcon = new ImageIcon(imageFile.getAbsolutePath());
+                    Image originalImage = originalIcon.getImage();
+                    int newWidth = 100; // Ancho deseado
+                    int newHeight = (originalIcon.getIconHeight() * newWidth) / originalIcon.getIconWidth(); // Mantener la relación de aspecto
+                    Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+                    ImageIcon resizedIcon = new ImageIcon(resizedImage);
+
+                    JLabel coverLabel;
+                    if (resizedIcon.getIconWidth() > 0) {
+                        coverLabel = new JLabel(resizedIcon);
+                    } else {
+                        coverLabel = new JLabel("Imagen no disponible");
+                    }
+
+                    // Agregar panel de información y etiqueta de imagen al panel de la carta
+                    bookCard.add(coverLabel);
+                    bookCard.add(Box.createRigidArea(new Dimension(10, 0))); // Espacio entre imagen y texto
+                    bookCard.add(infoPanel);
+
+                    // Agregar la carta del libro al panel izquierdo
+                    panelIzquerda.add(bookCard);
+
                     panelIzquerda.revalidate();
-                    panelIzquerda.repaint(); // Repintar el panel para asegurar que se muestren los cambios
+                    panelIzquerda.repaint();
                 } else {
-                    // Si el libro no se encuentra, mostrar un mensaje de error
                     JOptionPane.showMessageDialog(null, "El libro no fue encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-
             }
         });
+
+
+
+
     }
     public static void main(String[] args){
         UserMainPage ver = new UserMainPage();
