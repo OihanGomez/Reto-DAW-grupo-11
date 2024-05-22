@@ -1,10 +1,10 @@
 package Libreria.Acciones;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JComboBox;
 
 public class AdminManagement {
     private  Connection conexion;
@@ -15,22 +15,27 @@ public class AdminManagement {
 
 
     public void mostrarUsuarios(JComboBox<String> comboBox) {
-        try {
-            PreparedStatement statement = conexion.prepareStatement("SELECT email FROM usuarios");
-            ResultSet resultSet = statement.executeQuery();
+        String query = "SELECT email FROM usuarios";
+
+        try (PreparedStatement statement = conexion.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
             while (resultSet.next()) {
-                String username = resultSet.getString("email");
-                comboBox.addItem(username);
+                String email = resultSet.getString("email");
+                comboBox.addItem(email);
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al obtener los usuarios: " + e.getMessage());
         }
     }
 
 
+
     public void actualizarUsuario(String selectedUser, String nuevaDireccion, String nuevoNombre, String nuevosApellidos, String nuevoCorreo, String nuevaContrasena) {
-        try {
-            PreparedStatement statement = conexion.prepareStatement("UPDATE usuarios SET direccion = ?, nombre = ?, apellidos = ?, email = ?, contrasena = ? WHERE email = ?");
+        String query = "UPDATE usuarios SET direccion = ?, nombre = ?, apellidos = ?, email = ?, contrasena = ? WHERE email = ?";
+
+        try (PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setString(1, nuevaDireccion);
             statement.setString(2, nuevoNombre);
             statement.setString(3, nuevosApellidos);
@@ -42,10 +47,11 @@ public class AdminManagement {
             if (rowsUpdated > 0) {
                 System.out.println("Información actualizada exitosamente para el usuario: " + selectedUser);
             } else {
-                System.out.println("No se encontró ningún usuario con el nombre de usuario: " + selectedUser);
+                System.out.println("No se encontró ningún usuario con el correo: " + selectedUser);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al actualizar el usuario: " + e.getMessage());
         }
     }
+
 }
