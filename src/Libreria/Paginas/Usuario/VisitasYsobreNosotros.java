@@ -1,14 +1,20 @@
 package Libreria.Paginas.Usuario;
 
+import Libreria.Acciones.CitasManager;
 import Libreria.Paginas.TextPrompt;
+import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class VisitasYsobreNosotros {
-
     public VisitasYsobreNosotros() {
         // Creación del marco principal
         JFrame frame = new JFrame("Bibliopolis");
@@ -34,19 +40,18 @@ public class VisitasYsobreNosotros {
         JLabel eventosYNoticias = new JLabel("Eventos y Noticias");
         JLabel sobreNosotros = new JLabel("Visitas y Sobre nosotros");
 
-
-        //Icono de del usuario en el encabezado a la derecha
-        ImageIcon userLogedIcon = new ImageIcon(("src/Libreria/imagenes/user_icon_white_resize.png"));
+        // Icono del usuario en el encabezado a la derecha
+        ImageIcon userLogedIcon = new ImageIcon("src/Libreria/imagenes/user_icon_white_resize.png");
         JLabel inicioSesion = new JLabel(userLogedIcon);
 
-        //Texto debajo del icono del usuario
+        // Texto debajo del icono del usuario
         JLabel underUser = new JLabel("User");
 
-        //Panel donde se encuentran el icono del usuario y el nombre del usuario
-        JPanel vertical= new JPanel();
+        // Panel donde se encuentran el icono del usuario y el nombre del usuario
+        JPanel vertical = new JPanel();
         vertical.setLayout(new BoxLayout(vertical, BoxLayout.Y_AXIS));
         vertical.setLayout(new FlowLayout());
-        vertical.setPreferredSize(new Dimension(50,50));
+        vertical.setPreferredSize(new Dimension(50, 50));
         vertical.setBackground(Color.BLACK);
         vertical.add(inicioSesion);
         vertical.add(underUser);
@@ -81,7 +86,6 @@ public class VisitasYsobreNosotros {
         grupoBotones.add(sobreNosotros);
         grupoBotones.add(Box.createHorizontalStrut(70));
         grupoBotones.add(vertical);
-
 
         // Panel de encabezado que contiene el logo y los botones del menú
         JPanel headerPanel = new JPanel(new BorderLayout());
@@ -163,29 +167,53 @@ public class VisitasYsobreNosotros {
         noticiasInfoPanel.add(tituloProgramarVisita);
 
         // Etiquetas del busqueda y programacion de una visita
-        JLabel fechaLabel = new JLabel("Correo electrónico:");
-        noticiasInfoPanel.add(fechaLabel);
+        JLabel correoLabel = new JLabel("Correo electrónico:");
+        noticiasInfoPanel.add(correoLabel);
 
         // Área de texto del usuario y la contraseña
-        JTextField fechaText = new JTextField(10);
-        TextPrompt placeholder1 = new TextPrompt("example@gmail.com", fechaText);
+        JTextField correoText = new JTextField(10);
+        TextPrompt placeholder1 = new TextPrompt("example@gmail.com", correoText);
         placeholder1.changeAlpha(0.75f);
         placeholder1.changeStyle(Font.ITALIC);
-        noticiasInfoPanel.add(fechaText);
+        noticiasInfoPanel.add(correoText);
 
-        JLabel DNILabel = new JLabel("Fecha:");
-        noticiasInfoPanel.add(DNILabel);
+        JLabel fechaLabel = new JLabel("Fecha:");
 
-        JTextField DNIText = new JTextField(10);
-        TextPrompt placeholder2 = new TextPrompt("Fecha formato AAAA/MM/DD ", DNIText);
-        placeholder2.changeAlpha(0.75f);
-        placeholder2.changeStyle(Font.ITALIC);
-        noticiasInfoPanel.add(DNIText);
+// Selector de fecha JXDatePicker
+        JXDatePicker datePicker = new JXDatePicker();
+        datePicker.setDate(Calendar.getInstance().getTime());
+        datePicker.setFormats(new SimpleDateFormat("yyyy/MM/dd"));
+
+// Agrega los componentes al panel
+        noticiasInfoPanel.add(fechaLabel);
+        noticiasInfoPanel.add(datePicker);
 
         // Botón de busqueda
-        JButton buscarButton = new JButton("Buscar posibles visitas");
-        buscarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        noticiasInfoPanel.add(buscarButton);
+        JButton reservarButton = new JButton("Reservar visita");
+        reservarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        noticiasInfoPanel.add(reservarButton);
+
+        // Crear una instancia de CitasManager
+        CitasManager citasManager = new CitasManager();
+
+        // Añadir el ActionListener al botón de reservar
+
+        reservarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String email = correoText.getText();
+                Date fecha = datePicker.getDate();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                String fechaStr = sdf.format(fecha);
+                try {
+                    citasManager.reservarCita(email, fechaStr);
+                    JOptionPane.showMessageDialog(null, "Cita reservada exitosamente.");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
 
         body.add(ProgramarVisita);
 
